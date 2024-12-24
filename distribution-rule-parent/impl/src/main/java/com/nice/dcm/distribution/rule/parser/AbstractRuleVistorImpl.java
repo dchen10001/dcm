@@ -53,7 +53,6 @@ public abstract class AbstractRuleVistorImpl extends BaseRuleVistorImpl {
      */	
 	@Override
 	public SkillSetSelectorNodeImpl visitSkillOrSet(SkillOrSetContext ctx) {
-		ctx.skill();
 		if (ctx.skillSet() != null) {
 			return visitSkillSet(ctx.skillSet());
 		} else {
