@@ -1,6 +1,5 @@
 package com.nice.dcm.distribution.rule.parser;
 
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -22,11 +21,11 @@ public interface RuleVistor extends DistributionRulesVisitor<Node> {
      * @param node
      * @return
      */
-	default int toNumber(TerminalNode node) {
+	static int toNumber(TerminalNode node) {
 		return Integer.parseInt(node.getText());
 	}
 	
-	default long toLong(TerminalNode node) {
+	static long toLong(TerminalNode node) {
 		return Long.parseLong(node.getText());
 	}
 	
@@ -37,7 +36,7 @@ public interface RuleVistor extends DistributionRulesVisitor<Node> {
 	 * @return the SqlOperator
 	 * @throws ParseCancellationException if the operator is invalid
 	 */
-	default SqlOperator toSqlOperator(SqlOperatorContext ctx) {
+	static SqlOperator toSqlOperator(SqlOperatorContext ctx) {
         if(ctx.NOT_IN() != null) {
         	return SqlOperator.NOT_IN;         
 		} else if (ctx.IN() != null) {
@@ -51,7 +50,7 @@ public interface RuleVistor extends DistributionRulesVisitor<Node> {
 	 * @return the BinaryOperator
 	 * @throws ParseCancellationException if the operator is invalid
 	 */
-    default BinaryOperator toBinaryOperator(BinaryOperatorContext ctx) {
+	static BinaryOperator toBinaryOperator(BinaryOperatorContext ctx) {
         if(ctx.LESS_THAN() != null) {
             return BinaryOperator.LESS_THAN;
         } else if(ctx.LESS_THAN_EQUAL() != null) {

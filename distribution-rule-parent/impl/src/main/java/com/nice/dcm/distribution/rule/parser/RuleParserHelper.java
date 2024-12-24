@@ -1,10 +1,16 @@
 package com.nice.dcm.distribution.rule.parser;
 
+import java.util.Set;
+
+import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nice.dcm.distribution.rule.parser.listener.DistributionRulesListenerImpl;
 import com.nice.dcm.distribution.rule.parser.listener.ThrowingErrorListener;
 import com.nice.dcm.distribution.rule.parser.node.RoutingRuleSetNodeImpl;
 import com.nice.dcm.simulation.distribution.rule.RoutingRuleSet;
@@ -28,7 +34,6 @@ public class RuleParserHelper {
         CommonTokenStream tokens = new CommonTokenStream(tokenSource);
         
         DistributionRulesParser parser = new DistributionRulesParser(tokens);
-        parser.addErrorListener(errorListener);
         parser.addErrorListener(errorListener);
         return parser;
     }

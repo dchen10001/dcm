@@ -1,5 +1,10 @@
 package com.nice.dcm.distribution.rule.parser;
 
+import static com.nice.dcm.distribution.rule.parser.RuleVistor.toBinaryOperator;
+import static com.nice.dcm.distribution.rule.parser.RuleVistor.toLong;
+import static com.nice.dcm.distribution.rule.parser.RuleVistor.toNumber;
+import static com.nice.dcm.distribution.rule.parser.RuleVistor.toSqlOperator;
+
 import java.util.List;
 
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -174,14 +179,14 @@ public abstract class BaseRuleVistorImpl implements RuleVistor {
     
 	private SkillLevelCondition toSkillLevelCondition(BinaryOperatorContext binaryOperator, List<TerminalNode> numbers) {
         BinaryOperatorNodeImpl binaryOperatorNode = visitBinaryOperator(binaryOperator);
-        int level = this.toNumber(numbers.get(0));
+        int level = toNumber(numbers.get(0));
         return new BinarySkillLevelConditionImpl(binaryOperatorNode.getOperator(), level);
 	}
 	
 	private SkillLevelCondition toSkillLevelCondition(SqlOperatorContext sqlOperator, List<TerminalNode> numbers) {
 		SqlOperatorNodeImpl binaryOperatorNode = visitSqlOperator(sqlOperator);
-        int lowerLevel = this.toNumber(numbers.get(0));
-        int upperLevel = this.toNumber(numbers.get(1));
+        int lowerLevel = toNumber(numbers.get(0));
+        int upperLevel = toNumber(numbers.get(1));
 		return new SqlSkillLevelConditionImpl(binaryOperatorNode.getOperator(), lowerLevel, upperLevel);
 	}
 }
