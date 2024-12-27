@@ -155,7 +155,8 @@ class ExpressionVisitorImplTest {
 			double c = 0.0;
 			double d = 0.0;
 			double r1 = functions[i].apply(a, b, c, d);
-			double result = node.eval();
+			VariableStack variableStack = new VariableStackImpl();
+			double result = node.eval(variableStack);
 			assertEquals(r1, result, "expression: " + arithmeticExpressions[i]);
 			
 			a = 1.0;
@@ -163,8 +164,7 @@ class ExpressionVisitorImplTest {
 			c = 3.0;
 			d = 4.0;
 			r1 = functions[i].apply(a, b, c, d);
-			
-			VariableStack variableStack = new VariableStackImpl();
+			variableStack.clear();
 			variableStack.setVariable("a", a);
 			variableStack.setVariable("b", b);
 			variableStack.setVariable("c", c);

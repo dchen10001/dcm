@@ -17,6 +17,13 @@ public interface ConditionVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(ConditionParser.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ASSSIGNMENT}
+	 * labeled alternative in {@link ConditionParser#set}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LOGICALGRPT}
 	 * labeled alternative in {@link ConditionParser#conditiongroup}.
 	 * @param ctx the parse tree

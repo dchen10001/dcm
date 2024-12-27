@@ -31,11 +31,6 @@ public class VariableImpl implements Expression {
 	}
 
 	@Override
-	public double eval() {
-		return eval(null);
-	}
-
-	@Override
 	public String toExpression() {
 		if (sign != null)
 			return sign.getSymbol() + name;

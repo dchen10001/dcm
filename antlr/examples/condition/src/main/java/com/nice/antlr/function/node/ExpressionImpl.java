@@ -31,7 +31,11 @@ public class ExpressionImpl implements Expression {
 	public double eval(VariableStack variableStack) {
         double leftValue = left.eval(variableStack);
         double rightValue = right.eval(variableStack);
-        return operator.eval(leftValue, rightValue);
+        double value = operator.eval(leftValue, rightValue);       
+		if(Execution.isDebugEnable()) {
+			Execution.debug(toExpression(), String.valueOf(value));
+		}
+        return value;
 	}
 
 	@Override

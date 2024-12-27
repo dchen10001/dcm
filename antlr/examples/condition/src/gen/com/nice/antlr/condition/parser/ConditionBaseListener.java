@@ -29,6 +29,18 @@ public class ConditionBaseListener implements ConditionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLOGICALGRPT(ConditionParser.LOGICALGRPTContext ctx) { }
 	/**
 	 * {@inheritDoc}

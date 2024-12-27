@@ -1,8 +1,9 @@
 grammar Condition;
   
-start : conditiongroup | <EOF> ;
+start : (set)* conditiongroup | <EOF> ;
 
-// set : 'set' Identifier '=' expr ;
+set : 'set' Identifier '=' expr # ASSSIGNMENT
+;
 
 conditiongroup : binarysign conditiongroup # BINARYGRP
         | conditiongroup logicalop conditiongroup # LOGICALGRPT

@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import com.nice.antlr.condition.parser.ConditionLexer;
 import com.nice.antlr.condition.parser.ConditionParser;
 import com.nice.antlr.function.node.Condition;
-import com.nice.antlr.function.node.Expression;
 import com.nice.antlr.function.node.VariableStack;
 import com.nice.antlr.function.node.VariableStackImpl;
 import com.nice.antlr.function.parser.node.ConditionNodeImpl;
+import com.nice.antlr.function.parser.node.ExpressionNodeImpl;
 import com.nice.antlr.function.parser.node.NodeVisitorImpl;
 
 class ConditionVisitorImplTest {
@@ -73,7 +73,7 @@ class ConditionVisitorImplTest {
 		Condition condition = parse(expression, visitor);
 		assertEquals("2.0<3.0", condition.toExpression(), "expression: " + expression);
 		variableStack.clear();
-		assertEquals(true, condition.eval());
+		assertEquals(true, condition.eval(variableStack));
 		
 		//case 1: less than
 		expression = "a < b ";
@@ -209,7 +209,7 @@ class ConditionVisitorImplTest {
 		Condition condition = parse(expression, visitor);
 		assertEquals("2.0<3.0&&2.0!=3.0", condition.toExpression(), "expression: " + expression);
 		variableStack.clear();
-		assertEquals(true, condition.eval());
+		assertEquals(true, condition.eval(variableStack));
 		
 		//case 1: and
 		expression = "b > 3.0 && a < 3.0";
@@ -393,7 +393,8 @@ class ConditionVisitorImplTest {
 			double c = 0.0;
 			double d = 0.0;
 			boolean r1 = functions[i].apply(a, b, c, d);
-			boolean result = condition.eval();
+			VariableStack variableStack = new VariableStackImpl();
+			boolean result = condition.eval(variableStack);
 			assertEquals(r1, result, "expression: " + arithmeticExpressions[i]);
 			
 			a = 1.0;
@@ -401,8 +402,7 @@ class ConditionVisitorImplTest {
 			c = 3.0;
 			d = 4.0;
 			r1 = functions[i].apply(a, b, c, d);
-			
-			VariableStack variableStack = new VariableStackImpl();
+			variableStack.clear();
 			variableStack.setVariable("a", a);
 			variableStack.setVariable("b", b);
 			variableStack.setVariable("c", c);
@@ -418,8 +418,9 @@ class ConditionVisitorImplTest {
 		ConditionLexer lexer = new ConditionLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		ConditionParser parser = new ConditionParser(tokens);
-		ParseTree tree = parser.start();
-		ConditionNodeImpl node = (ConditionNodeImpl)visitor.visit(tree);
+		//ParseTree tree = parser.start();
+		ConditionNodeImpl node = (ConditionNodeImpl)parser.conditiongroup().accept(visitor);
+		//ConditionNodeImpl node = (ConditionNodeImpl)visitor.visit(tree);
 		return node.getCondition();
 	}
 }
