@@ -20,11 +20,6 @@ public class LogicConditionImpl implements Condition {
 	}
 
 	@Override
-	public boolean eval() {
-		return eval(null);
-	}
-
-	@Override
 	public String toExpression() {
 		StringBuilder sb = new StringBuilder();
 		if (this.left instanceof LogicConditionImpl) {

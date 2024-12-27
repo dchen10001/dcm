@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class VariableStackImpl implements VariableStack {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class VariableStackImpl implements VariableStack {
 	private final Map<String, Double> variables = new HashMap<>();
 	
 	@Override
@@ -20,7 +22,16 @@ public class VariableStackImpl implements VariableStack {
 
 	@Override
 	public double getVariable(String name) {
-		return variables.getOrDefault(name, 0d);
+		double value = variables.getOrDefault(name, 0d);
+		if(Execution.isDebugEnable()) {
+			String script = "variable " + name;
+			String strValue = String.valueOf(value);			
+			if(!this.isVariableExist(name)) {
+				strValue = strValue + " by default";
+			}
+			Execution.debug(script, strValue);
+		}
+		return value;
 	}
 
 	@Override

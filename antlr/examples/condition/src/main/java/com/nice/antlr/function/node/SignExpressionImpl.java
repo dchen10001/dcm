@@ -17,11 +17,6 @@ public class SignExpressionImpl implements Expression {
 	}
 
 	@Override
-	public double eval() {
-		return eval(null);
-	}
-
-	@Override
 	public String toExpression() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(sign.getSymbol())

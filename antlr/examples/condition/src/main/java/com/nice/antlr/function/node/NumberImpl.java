@@ -21,11 +21,6 @@ public class NumberImpl implements Expression {
 	}
 
 	@Override
-	public double eval() {
-		return getValue();
-	}
-
-	@Override
 	public double eval(VariableStack variableStack) {
 		return getValue();
 	}

@@ -18,11 +18,6 @@ public class SignConditionImpl implements Condition {
 	}
 
 	@Override
-	public boolean eval() {
-		return eval(null);
-	}
-
-	@Override
 	public String toExpression() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(sign.getSymbol())

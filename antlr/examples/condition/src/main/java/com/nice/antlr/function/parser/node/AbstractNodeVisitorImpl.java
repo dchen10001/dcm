@@ -24,79 +24,79 @@ public abstract class AbstractNodeVisitorImpl implements ConditionVisitor<Node> 
 
 	@Override
 	public Node visit(ParseTree tree) {
-		logger.debug("Visiting tree: {}", tree.getText());
+		logger.trace("Visiting tree: {}", tree.getText());
 		return tree.accept(this);
 	}
 
 	@Override
 	public Node visitTerminal(TerminalNode node) {
-		logger.debug("Visiting terminal: {}", node.getText());
+		logger.trace("Visiting terminal: {}", node.getText());
 		return defaultResult();
 	}
 
 	@Override
 	public Node visitErrorNode(ErrorNode node) {
-		logger.debug("Visiting error node: {}", node.getText());
+		logger.trace("Visiting error node: {}", node.getText());
 		return defaultResult();
 	}
 
 	@Override
 	public Node visitCONDITIONGRPT(CONDITIONGRPTContext ctx) {
-		logger.debug("Visiting CONDITIONGRPT: {}", ctx.getText());
+		logger.trace("Visiting CONDITIONGRPT: {}", ctx.getText());
 		return visit(ctx.conditiongroup());
 	}
 	
 	@Override
 	public Node visitCONDITIONGRP(CONDITIONGRPContext ctx) {
-		logger.debug("Visiting CONDITIONGRP: {}", ctx.getText());
+		logger.trace("Visiting CONDITIONGRP: {}", ctx.getText());
 		return visit(ctx.condition());
 	}
 	
 	@Override
 	public Node visitCNDPARENGRP(CNDPARENGRPContext ctx) {
-		logger.debug("Visiting CNDPARENGRP: {}", ctx.getText());
+		logger.trace("Visiting CNDPARENGRP: {}", ctx.getText());
 		return visit(ctx.condition());
 	}
 	
 	@Override
 	public Node visitEXPPARENGRP(EXPPARENGRPContext ctx) {
-		logger.debug("Visiting PARENGRP: {}", ctx.getText());
+		logger.trace("Visiting PARENGRP: {}", ctx.getText());
 		return visit(ctx.expr());
 	}
 	
 	@Override
 	public Node visitAddop(AddopContext ctx) {
-		logger.debug("Visiting Addop: {}", ctx.getText());
+		logger.trace("Visiting Addop: {}", ctx.getText());
 		return visitChildren(ctx);
 	}
 
 	@Override
 	public Node visitMulop(MulopContext ctx) {
-		logger.debug("Visiting Mulop: {}", ctx.getText());
+		logger.trace("Visiting Mulop: {}", ctx.getText());
 		return visitChildren(ctx);
 	}
 
 	@Override
 	public Node visitRelop(RelopContext ctx) {
-		logger.debug("Visiting Relop: {}", ctx.getText());
+		logger.trace("Visiting Relop: {}", ctx.getText());
 		return visitChildren(ctx);
 	}
 
 	@Override
 	public Node visitArithmeticsign(ArithmeticsignContext ctx) {
-		logger.debug("Visiting Arithmeticsign: {}", ctx.getText());
+		logger.trace("Visiting Arithmeticsign: {}", ctx.getText());
 		return visitChildren(ctx);
 	}
 
 	@Override
 	public Node visitBinarysign(BinarysignContext ctx) {
-		logger.debug("Visiting Binarysign: {}", ctx.getText());
+		logger.trace("Visiting Binarysign: {}", ctx.getText());
 		return visitChildren(ctx);
 	}
 
 	@Override
 	public Node visitLogicalop(LogicalopContext ctx) {
-		logger.debug("Visiting Logicalop: {}", ctx.getText());
+		logger.trace("Visiting Logicalop: {}", ctx.getText());
 		return visitChildren(ctx);
 	}
 	
@@ -114,7 +114,7 @@ public abstract class AbstractNodeVisitorImpl implements ConditionVisitor<Node> 
 	
 	@Override
 	public Node visitChildren(RuleNode node) {
-		logger.debug("Visiting children: {}", node.getText());
+		logger.trace("Visiting children: {}", node.getText());
 		Node result = defaultResult();
 		int n = node.getChildCount();
 		for (int i=0; i<n; i++) {

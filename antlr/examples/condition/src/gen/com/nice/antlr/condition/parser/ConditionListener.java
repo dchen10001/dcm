@@ -18,6 +18,18 @@ public interface ConditionListener extends ParseTreeListener {
 	 */
 	void exitStart(ConditionParser.StartContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ASSSIGNMENT}
+	 * labeled alternative in {@link ConditionParser#set}.
+	 * @param ctx the parse tree
+	 */
+	void enterASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ASSSIGNMENT}
+	 * labeled alternative in {@link ConditionParser#set}.
+	 * @param ctx the parse tree
+	 */
+	void exitASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code LOGICALGRPT}
 	 * labeled alternative in {@link ConditionParser#conditiongroup}.
 	 * @param ctx the parse tree
