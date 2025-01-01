@@ -4,16 +4,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.Entity_identifierContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.OIDHEXContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.OIDNUMBERContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.RoutingRuleContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.RoutingRuleGroupContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.RoutingRuleSetContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.RoutingWaitingRuleGroupContext;
+import com.nice.dcm.distribution.rule.parser.node.ActionNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.EntityIdentifierNodeImpl;
+import com.nice.dcm.distribution.rule.parser.node.PriorityNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.QueueStatusNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.RoutingRuleGroupNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.RoutingRuleNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.RoutingRuleSetNodeImpl;
+import com.nice.dcm.distribution.rule.parser.node.SkillOrSelectorNodeImpl;
+import com.nice.dcm.distribution.rule.parser.node.WaitNodeImpl;
 import com.nice.dcm.simulation.distribution.rule.QueueStatus;
 import com.nice.dcm.simulation.distribution.rule.RoutingGroupRule;
 import com.nice.dcm.simulation.distribution.rule.RoutingGroupRuleImpl;
@@ -46,7 +51,7 @@ public class DCMRuleVisitorImpl extends AbstractRuleVistorImpl {
 	 */
 	@Override
 	public RoutingRuleSetNodeImpl visitRoutingRuleSet(RoutingRuleSetContext ctx) {
-		RoutingGroupRule groupRule = visitRoutingRuleGroup(ctx.routingRuleGroup()).getRoutingGroupRule();
+		RoutingGroupRule groupRule = ((RoutingRuleGroupNodeImpl)visit(ctx.routingRuleGroup())).getRoutingGroupRule();
 
 		List<RoutingWaitingRuleGroupContext> waitGroupRules = ctx.routingWaitingRuleGroup();
 		RoutingRuleSet routingRuleSet = null;
@@ -54,7 +59,7 @@ public class DCMRuleVisitorImpl extends AbstractRuleVistorImpl {
 			routingRuleSet =  new RoutingRuleSetImpl(groupRule);
 		} else {
 			List<RoutingGroupRule> groupRules = waitGroupRules.stream()
-					.map(c -> visitRoutingWaitingRuleGroup(c).getRoutingGroupRule()).toList();
+					.map(c -> ((RoutingRuleGroupNodeImpl)visit(c)).getRoutingGroupRule()).toList();
 			routingRuleSet = new RoutingRuleSetImpl(groupRule, groupRules);
 		}
 		return new RoutingRuleSetNodeImpl(routingRuleSet);
@@ -68,7 +73,7 @@ public class DCMRuleVisitorImpl extends AbstractRuleVistorImpl {
 	 */
 	@Override
 	public RoutingRuleGroupNodeImpl visitRoutingWaitingRuleGroup(RoutingWaitingRuleGroupContext ctx) {
-		long waitAfterSeconds = visitWaitRule(ctx.waitRule()).getWaitFor();
+		long waitAfterSeconds = ((WaitNodeImpl)visit(ctx.waitRule())).getWaitFor();
 		RoutingGroupRule rule = toRoutingGroupRule(ctx.routingRuleGroup(), waitAfterSeconds);
 		return new RoutingRuleGroupNodeImpl(rule);
 	}
@@ -103,14 +108,14 @@ public class DCMRuleVisitorImpl extends AbstractRuleVistorImpl {
 	}
 	
 	protected RoutingRule toRoutingRule(RoutingRuleContext ctx) {
-		RuleAction action = visitRuleAction(ctx.ruleAction()).getAction();
-		List<SkillSetSelector> selectors = visitOrSkills(ctx.orSkills()).getSelectors();
-		int priority = visitPriority(ctx.priority()).getPriority();
+		RuleAction action = ((ActionNodeImpl)visit(ctx.ruleAction())).getAction();
+		List<SkillSetSelector> selectors = ((SkillOrSelectorNodeImpl)visit(ctx.orSkills())).getSelectors();
+		int priority = ((PriorityNodeImpl)visit(ctx.priority())).getPriority();
 		
 		QueueStatus queueStatus = null;
-		if (selectors.size() > 1) {
-			QueueStatusNodeImpl queueNode = visitQueue_status(ctx.queue_status());
-			queueStatus = queueNode != null ? queueNode.getQueueStatus() : null;
+		if (selectors.size() > 1 && ctx.queue_status() != null) {
+			QueueStatusNodeImpl queueNode = (QueueStatusNodeImpl)visit(ctx.queue_status());
+			queueStatus = queueNode.getQueueStatus();
 		}
 		return new RoutingRuleImpl(action, queueStatus, selectors, priority);
 	}
@@ -121,18 +126,28 @@ public class DCMRuleVisitorImpl extends AbstractRuleVistorImpl {
      * @param ctx
      * @return
      */
-    @Override
-    public EntityIdentifierNodeImpl visitEntity_identifier(Entity_identifierContext ctx) {
-        EntityIdentifierNodeImpl idNode = super.visitEntity_identifier(ctx);
-        String oid = idNode.getEntityIdentifier();
-		if (!skills.contains(oid)) {
+    private void validSkill(String oid) {
+        if (!skills.contains(oid)) {
 			logger.warn("Skill {} does not exist", oid);
         	noExistSkills.add(oid);
         }
-        return idNode;
     }
     
+	@Override
+	public EntityIdentifierNodeImpl visitOIDHEX(OIDHEXContext ctx) {
+		String oid = ctx.getText();
+		validSkill(oid);
+		return new EntityIdentifierNodeImpl(oid);
+	}
+
+	@Override
+	public EntityIdentifierNodeImpl visitOIDNUMBER(OIDNUMBERContext ctx) {
+		String oid = ctx.getText();
+		validSkill(oid);
+		return new EntityIdentifierNodeImpl(oid);
+	}
+	
 	public Set<String> getNoExistSkills() {
 		return noExistSkills;
-	}	
+	}
 }

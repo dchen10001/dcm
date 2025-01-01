@@ -18,7 +18,7 @@ public interface ConditionVisitor<T> extends ParseTreeVisitor<T> {
 	T visitStart(ConditionParser.StartContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ASSSIGNMENT}
-	 * labeled alternative in {@link ConditionParser#set}.
+	 * labeled alternative in {@link ConditionParser#setdouble}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -30,6 +30,13 @@ public interface ConditionVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLOGICALGRPT(ConditionParser.LOGICALGRPTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VARIABLEGRP}
+	 * labeled alternative in {@link ConditionParser#conditiongroup}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVARIABLEGRP(ConditionParser.VARIABLEGRPContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code CONDITIONGRP}
 	 * labeled alternative in {@link ConditionParser#conditiongroup}.

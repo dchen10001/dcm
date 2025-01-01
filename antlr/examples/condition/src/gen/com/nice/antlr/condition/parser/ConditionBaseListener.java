@@ -53,6 +53,18 @@ public class ConditionBaseListener implements ConditionListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVARIABLEGRP(ConditionParser.VARIABLEGRPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVARIABLEGRP(ConditionParser.VARIABLEGRPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCONDITIONGRP(ConditionParser.CONDITIONGRPContext ctx) { }
 	/**
 	 * {@inheritDoc}

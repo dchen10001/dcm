@@ -1,7 +1,7 @@
-package com.nice.antlr.function.node;
+package com.nice.antlr.function.node.condition;
 
-import com.nice.antlr.function.node.operator.BinarySign;
 import com.nice.antlr.function.node.operator.LogicOp;
+import com.nice.antlr.function.node.variable.VariableStack;
 
 public class LogicConditionImpl implements Condition {
 	private LogicOp operator;
@@ -15,8 +15,12 @@ public class LogicConditionImpl implements Condition {
 	}
 
 	@Override
-	public boolean eval(VariableStack variableStack) {
-		return operator.eval(variableStack, left, right);
+	public Boolean eval(VariableStack variableStack) {
+		boolean flag =  operator.eval(variableStack, left, right);
+		if(isDebugEnable()) {
+			debug(toExpression(), String.valueOf(flag));
+		}
+		return flag;
 	}
 
 	@Override

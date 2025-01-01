@@ -1,7 +1,7 @@
 package com.nice.antlr.function.node.operator;
 
-import com.nice.antlr.function.node.Condition;
-import com.nice.antlr.function.node.VariableStack;
+import com.nice.antlr.function.node.condition.Condition;
+import com.nice.antlr.function.node.variable.VariableStack;
 
 public enum LogicOp {
 	AND("&&")

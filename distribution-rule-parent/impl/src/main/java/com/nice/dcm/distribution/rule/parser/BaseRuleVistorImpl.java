@@ -7,22 +7,18 @@ import static com.nice.dcm.distribution.rule.parser.RuleVistor.toSqlOperator;
 
 import java.util.List;
 
-import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.ACTQUEUETOContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.BINARYOPContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.BinaryOperatorContext;
-import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.LevelConditionContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.PriorityContext;
-import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.RuleActionContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.QSLEASTBUSYOFContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SQLOPContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SqlOperatorContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.WaitRuleContext;
 import com.nice.dcm.distribution.rule.parser.node.ActionNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.BinaryOperatorNodeImpl;
-import com.nice.dcm.distribution.rule.parser.node.EntityIdentifierNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.Node;
 import com.nice.dcm.distribution.rule.parser.node.PriorityNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.QueueStatusNodeImpl;
@@ -43,31 +39,11 @@ import com.nice.dcm.simulation.distribution.rule.operator.SqlSkillLevelCondition
  * 
  * @see RuleVistor
  */
-public abstract class BaseRuleVistorImpl implements RuleVistor {
-	protected static final Logger logger = LoggerFactory.getLogger(BaseRuleVistorImpl.class);
+public abstract class BaseRuleVistorImpl extends CommonNodeVisitorImpl {
+
 	protected BaseRuleVistorImpl() {
 		
 	}
-	
-    @Override
-    public Node visit(ParseTree tree) {
-        return null;
-    }
-
-    @Override
-    public Node visitChildren(RuleNode node) {
-        return null;
-    }
-
-    @Override
-    public Node visitTerminal(TerminalNode node) {
-        return null;
-    }
-
-    @Override
-    public Node visitErrorNode(ErrorNode node) {
-        return null;
-    }
 	
 	/**************************************************************************
 	 * The following methods are used to convert the context to the corresponding
@@ -80,40 +56,22 @@ public abstract class BaseRuleVistorImpl implements RuleVistor {
      * @param ctx
      * @return
      */
-    @Override
-    public QueueStatusNodeImpl visitQueue_status(DistributionRulesParser.Queue_statusContext ctx) {
-		if (ctx != null && ctx.LEAST_BUSY_OF() != null) {
-			return new QueueStatusNodeImpl(QueueStatus.LEAST_BUSY);
-		}
-		return null;
-    }
-    
-    /**
-     * Visit an entity identifier node
-     * 
-     * @param ctx
-     * @return
-     */
-    @Override
-    public EntityIdentifierNodeImpl visitEntity_identifier(DistributionRulesParser.Entity_identifierContext ctx) {
-    	TerminalNode oidNode = ctx.NUMBER();
-        if (oidNode == null) {
-            oidNode = ctx.UUID_OR_HEXA();
-        }
-        return new EntityIdentifierNodeImpl(oidNode.getText());
-    }	
-    
+	@Override
+	public QueueStatusNodeImpl visitQSLEASTBUSYOF(QSLEASTBUSYOFContext ctx) {
+		return new QueueStatusNodeImpl(QueueStatus.LEAST_BUSY);
+	}
+        
     /**
      * Visit a rule action node
      * 
      * @param ctx
      * @return
      */
-    @Override
-	public ActionNodeImpl visitRuleAction(RuleActionContext ctx) {
-    	return new ActionNodeImpl(RuleAction.QUEUE_TO);
+	@Override
+	public Node visitACTQUEUETO(ACTQUEUETOContext ctx) {
+		return new ActionNodeImpl(RuleAction.QUEUE_TO);
 	}
-    
+
     /**
      * Visit an order node
      * 
@@ -164,29 +122,21 @@ public abstract class BaseRuleVistorImpl implements RuleVistor {
 		return new SqlOperatorNodeImpl(operator);
 	}
     
-    /**
-	 * Convert the level condition context to condition node.
-	 * 
-	 * @param ctx
-	 * @return
-	 */
-    @Override
-    public SkillLevelConditionNodeImpl visitLevelCondition(LevelConditionContext ctx) {
-    	SkillLevelCondition condition = ctx.binaryOperator() != null ?
-    			toSkillLevelCondition(ctx.binaryOperator(), ctx.NUMBER()) : toSkillLevelCondition(ctx.sqlOperator(), ctx.NUMBER());
-    	return new SkillLevelConditionNodeImpl(condition);
-    }
-    
-	private SkillLevelCondition toSkillLevelCondition(BinaryOperatorContext binaryOperator, List<TerminalNode> numbers) {
-        BinaryOperatorNodeImpl binaryOperatorNode = visitBinaryOperator(binaryOperator);
-        int level = toNumber(numbers.get(0));
-        return new BinarySkillLevelConditionImpl(binaryOperatorNode.getOperator(), level);
+	@Override
+	public SkillLevelConditionNodeImpl visitBINARYOP(BINARYOPContext ctx) {
+        BinaryOperatorNodeImpl binaryOperatorNode = visitBinaryOperator(ctx.binaryOperator());
+        int level = toNumber(ctx.NUMBER());
+        SkillLevelCondition condition = new BinarySkillLevelConditionImpl(binaryOperatorNode.getOperator(), level);
+        return new SkillLevelConditionNodeImpl(condition);
 	}
-	
-	private SkillLevelCondition toSkillLevelCondition(SqlOperatorContext sqlOperator, List<TerminalNode> numbers) {
-		SqlOperatorNodeImpl binaryOperatorNode = visitSqlOperator(sqlOperator);
+
+	@Override
+	public Node visitSQLOP(SQLOPContext ctx) {
+		List<TerminalNode> numbers = ctx.NUMBER();
+		SqlOperatorNodeImpl binaryOperatorNode = visitSqlOperator(ctx.sqlOperator());
         int lowerLevel = toNumber(numbers.get(0));
         int upperLevel = toNumber(numbers.get(1));
-		return new SqlSkillLevelConditionImpl(binaryOperatorNode.getOperator(), lowerLevel, upperLevel);
-	}
+        SkillLevelCondition condition = new SqlSkillLevelConditionImpl(binaryOperatorNode.getOperator(), lowerLevel, upperLevel);
+        return new SkillLevelConditionNodeImpl(condition);
+	}			
 }

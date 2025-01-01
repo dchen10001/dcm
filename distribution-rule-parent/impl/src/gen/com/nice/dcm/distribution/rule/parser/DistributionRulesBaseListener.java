@@ -65,73 +65,97 @@ public class DistributionRulesBaseListener implements DistributionRulesListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRuleAction(DistributionRulesParser.RuleActionContext ctx) { }
+	@Override public void enterACTQUEUETO(DistributionRulesParser.ACTQUEUETOContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRuleAction(DistributionRulesParser.RuleActionContext ctx) { }
+	@Override public void exitACTQUEUETO(DistributionRulesParser.ACTQUEUETOContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOrSkills(DistributionRulesParser.OrSkillsContext ctx) { }
+	@Override public void enterSKILLSETOR(DistributionRulesParser.SKILLSETORContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOrSkills(DistributionRulesParser.OrSkillsContext ctx) { }
+	@Override public void exitSKILLSETOR(DistributionRulesParser.SKILLSETORContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSkillOrSet(DistributionRulesParser.SkillOrSetContext ctx) { }
+	@Override public void enterORSKILL(DistributionRulesParser.ORSKILLContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSkillOrSet(DistributionRulesParser.SkillOrSetContext ctx) { }
+	@Override public void exitORSKILL(DistributionRulesParser.ORSKILLContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSkillSet(DistributionRulesParser.SkillSetContext ctx) { }
+	@Override public void enterORSKILLSET(DistributionRulesParser.ORSKILLSETContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSkillSet(DistributionRulesParser.SkillSetContext ctx) { }
+	@Override public void exitORSKILLSET(DistributionRulesParser.ORSKILLSETContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSkill(DistributionRulesParser.SkillContext ctx) { }
+	@Override public void enterSKILLANDSET(DistributionRulesParser.SKILLANDSETContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSkill(DistributionRulesParser.SkillContext ctx) { }
+	@Override public void exitSKILLANDSET(DistributionRulesParser.SKILLANDSETContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLevelCondition(DistributionRulesParser.LevelConditionContext ctx) { }
+	@Override public void enterSKILLCONDITION(DistributionRulesParser.SKILLCONDITIONContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLevelCondition(DistributionRulesParser.LevelConditionContext ctx) { }
+	@Override public void exitSKILLCONDITION(DistributionRulesParser.SKILLCONDITIONContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBINARYOP(DistributionRulesParser.BINARYOPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBINARYOP(DistributionRulesParser.BINARYOPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSQLOP(DistributionRulesParser.SQLOPContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSQLOP(DistributionRulesParser.SQLOPContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -161,13 +185,25 @@ public class DistributionRulesBaseListener implements DistributionRulesListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEntity_identifier(DistributionRulesParser.Entity_identifierContext ctx) { }
+	@Override public void enterOIDHEX(DistributionRulesParser.OIDHEXContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEntity_identifier(DistributionRulesParser.Entity_identifierContext ctx) { }
+	@Override public void exitOIDHEX(DistributionRulesParser.OIDHEXContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOIDNUMBER(DistributionRulesParser.OIDNUMBERContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOIDNUMBER(DistributionRulesParser.OIDNUMBERContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -197,13 +233,13 @@ public class DistributionRulesBaseListener implements DistributionRulesListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQueue_status(DistributionRulesParser.Queue_statusContext ctx) { }
+	@Override public void enterQSLEASTBUSYOF(DistributionRulesParser.QSLEASTBUSYOFContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitQueue_status(DistributionRulesParser.Queue_statusContext ctx) { }
+	@Override public void exitQSLEASTBUSYOF(DistributionRulesParser.QSLEASTBUSYOFContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

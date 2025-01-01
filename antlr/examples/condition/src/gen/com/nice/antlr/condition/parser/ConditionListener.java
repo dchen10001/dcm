@@ -19,13 +19,13 @@ public interface ConditionListener extends ParseTreeListener {
 	void exitStart(ConditionParser.StartContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ASSSIGNMENT}
-	 * labeled alternative in {@link ConditionParser#set}.
+	 * labeled alternative in {@link ConditionParser#setdouble}.
 	 * @param ctx the parse tree
 	 */
 	void enterASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code ASSSIGNMENT}
-	 * labeled alternative in {@link ConditionParser#set}.
+	 * labeled alternative in {@link ConditionParser#setdouble}.
 	 * @param ctx the parse tree
 	 */
 	void exitASSSIGNMENT(ConditionParser.ASSSIGNMENTContext ctx);
@@ -41,6 +41,18 @@ public interface ConditionListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLOGICALGRPT(ConditionParser.LOGICALGRPTContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VARIABLEGRP}
+	 * labeled alternative in {@link ConditionParser#conditiongroup}.
+	 * @param ctx the parse tree
+	 */
+	void enterVARIABLEGRP(ConditionParser.VARIABLEGRPContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VARIABLEGRP}
+	 * labeled alternative in {@link ConditionParser#conditiongroup}.
+	 * @param ctx the parse tree
+	 */
+	void exitVARIABLEGRP(ConditionParser.VARIABLEGRPContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code CONDITIONGRP}
 	 * labeled alternative in {@link ConditionParser#conditiongroup}.

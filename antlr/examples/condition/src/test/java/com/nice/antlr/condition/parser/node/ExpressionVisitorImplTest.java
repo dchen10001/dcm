@@ -12,11 +12,11 @@ import org.junit.jupiter.api.Test;
 
 import com.nice.antlr.condition.parser.ConditionLexer;
 import com.nice.antlr.condition.parser.ConditionParser;
-import com.nice.antlr.function.node.Expression;
-import com.nice.antlr.function.node.VariableStack;
-import com.nice.antlr.function.node.VariableStackImpl;
-import com.nice.antlr.function.parser.node.ExpressionNodeImpl;
-import com.nice.antlr.function.parser.node.NodeVisitorImpl;
+import com.nice.antlr.function.node.expression.Expression;
+import com.nice.antlr.function.node.variable.VariableStack;
+import com.nice.antlr.function.node.variable.VariableStackImpl;
+import com.nice.antlr.function.parser.visit.ScriptNodeVisitorImpl;
+import com.nice.antlr.function.parser.visit.nodewrapper.ExpressionWrapperImpl;
 
 class ExpressionVisitorImplTest {
 	String arithmeticExpressions[] = {
@@ -41,7 +41,7 @@ class ExpressionVisitorImplTest {
 	@Test
 	void testBasicVisit() {
 		VariableStack variableStack = new VariableStackImpl();
-		NodeVisitorImpl visitor = new NodeVisitorImpl();
+		ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 
 		String expression = "2 + 4";
 		Expression node = parse(expression, visitor);
@@ -53,93 +53,93 @@ class ExpressionVisitorImplTest {
 		node = parse(expression, visitor);
 		assertEquals("a+b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 2);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 2d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(6, node.eval(variableStack));
 		
 		expression = "(a + b)";
 		node = parse(expression, visitor);
 		assertEquals("a+b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 2);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 2d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(6, node.eval(variableStack));
 		
 		expression = "a - b";
 		node = parse(expression, visitor);
 		assertEquals("a-b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 2);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 2d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(-2, node.eval(variableStack));
 		
 		expression = "a * b";
 		node = parse(expression, visitor);
 		assertEquals("a*b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 2);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 2d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(8, node.eval(variableStack));
 		
 		expression = "a / b";
 		node = parse(expression, visitor);
 		assertEquals("a/b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 2);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 2d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(0.5, node.eval(variableStack));
 		
 		expression = "a % b";
 		node = parse(expression, visitor);
 		assertEquals("a%b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 3);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 3d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(3, node.eval(variableStack));
 		
 		expression = "-a * b";
 		node = parse(expression, visitor);
 		assertEquals("(-(a))*b", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 3);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 3d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(-12, node.eval(variableStack));
 		
 		expression = "-(a * b)";
 		node = parse(expression, visitor);
 		assertEquals("-(a*b)", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 3);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 3d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(-12, node.eval(variableStack));
 		
 		expression = "-(-(a * b))";
 		node = parse(expression, visitor);
 		assertEquals("-(-(a*b))", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 3);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 3d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(12, node.eval(variableStack));
 		
 		expression = "(-(-(a * b)))";
 		node = parse(expression, visitor);
 		assertEquals("-(-(a*b))", node.toExpression());
 		variableStack.clear();
-		variableStack.setVariable("a", 3);
-		variableStack.setVariable("b", 4);
+		variableStack.setVariable("a", 3d);
+		variableStack.setVariable("b", 4d);
 		assertEquals(12, node.eval(variableStack));
 	}
 	
 	@Test
 	void testVisit() {
 		for (int i = 0; i < arithmeticExpressions.length; i++) {
-			NodeVisitorImpl visitor = new NodeVisitorImpl();
+			ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 			String arithmeticExpression = arithmeticExpressions[i];
 			Expression node = parse(arithmeticExpression, visitor);
 			String expression = node.toExpression();
 			arithmeticExpression = arithmeticExpression.replaceAll("\\s", "");
 			assertEquals(arithmeticExpression, expression, "expression: " + arithmeticExpressions[i]);
-			Set<String> names = visitor.getVariableNames().stream().collect(Collectors.toSet());
+			Set<String> names = visitor.getVariableNames(Double.class).stream().collect(Collectors.toSet());
 			assertEquals(Set.of("a", "b", "c", "d"), names);
 		}
 	}
@@ -147,7 +147,7 @@ class ExpressionVisitorImplTest {
 	@Test
 	void testEval() {
 		for (int i = 0; i < arithmeticExpressions.length; i++) {
-			NodeVisitorImpl visitor = new NodeVisitorImpl();
+			ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 			String arithmeticExpression = arithmeticExpressions[i];
 			Expression node = parse(arithmeticExpression, visitor);
 			double a = 0.0;
@@ -175,12 +175,12 @@ class ExpressionVisitorImplTest {
 		
 	}
 
-	public Expression parse(String arithmeticExpression, NodeVisitorImpl visitor) {
+	public Expression parse(String arithmeticExpression, ScriptNodeVisitorImpl visitor) {
 		CodePointCharStream input = CharStreams.fromString(arithmeticExpression);
 		ConditionLexer lexer = new ConditionLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		ConditionParser parser = new ConditionParser(tokens);
-		ExpressionNodeImpl node = (ExpressionNodeImpl)parser.expr().accept(visitor);
+		ExpressionWrapperImpl node = (ExpressionWrapperImpl)parser.expr().accept(visitor);
 		return node.getExpression();
 	}
 }

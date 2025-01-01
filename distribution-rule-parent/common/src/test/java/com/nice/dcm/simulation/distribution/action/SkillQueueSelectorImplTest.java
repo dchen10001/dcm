@@ -16,6 +16,7 @@ import com.nice.dcm.simulation.distribution.rule.operator.SqlSkillLevelCondition
 class SkillQueueSelectorImplTest {
 	@Test
 	void testGetSkillSelectors() {
+		SkillQueueSelector.resetId();
 		SkillLevelCondition condition = new SqlSkillLevelConditionImpl(SqlOperator.IN, 1, 2);
 		
 		List<SkillSelector> skillSelectorsList = List.of(new SkillSelectorImpl("skillOid1"),
