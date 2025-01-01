@@ -2,7 +2,6 @@ package com.nice.dcm.distribution.rule.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -632,11 +631,26 @@ class RuleParserHelperItemTest {
 	@Test
 	void testVisitRoutingWaitingRuleGroup() {
 		DCMRuleVisitorImpl dcmRuleVisitor = new DCMRuleVisitorImpl();
-		assertNull(dcmRuleVisitor.visit(null));
-		assertNull(dcmRuleVisitor.visitChildren(null));
-		assertNull(dcmRuleVisitor.visitTerminal(null));
-		assertNull(dcmRuleVisitor.visitErrorNode(null));
+		Exception exception = assertThrows(NullPointerException.class, () -> {
+			dcmRuleVisitor.visit(null);
+		});
+		assertEquals("tree is marked non-null but is null", exception.getMessage());
+
+		exception = assertThrows(NullPointerException.class, () -> {
+			dcmRuleVisitor.visitChildren(null);
+		});
+		assertEquals("node is marked non-null but is null", exception.getMessage());
+
+		exception = assertThrows(NullPointerException.class, () -> {
+			dcmRuleVisitor.visitTerminal(null);
+		});
+		assertEquals("node is marked non-null but is null", exception.getMessage());
 		
+		exception = assertThrows(NullPointerException.class, () -> {
+			dcmRuleVisitor.visitErrorNode(null);
+		});
+		assertEquals("node is marked non-null but is null", exception.getMessage());
+
 		TestRuleParserHelper ruleParserHelper = new TestRuleParserHelper();
 		String scripts[] = {"wait 100 queue to @S: 1111a with priority 1",
 							"""
@@ -661,7 +675,7 @@ class RuleParserHelperItemTest {
 		assertEquals(200, routingGroupRule.getWaitAfterSeconds());
 		assertEquals(3, routingGroupRule.getRules().size());
 		
-		Exception exception = assertThrows(ParseCancellationException.class, () -> {
+		exception = assertThrows(ParseCancellationException.class, () -> {
 			ruleParserHelper.visitRoutingWaitRuleGroup("wait queue to @S: 1111a with priority 1", dcmRuleVisitor);
 		});
 		assertEquals("line 1: 5 missing NUMBER at 'queue to'", exception.getMessage());

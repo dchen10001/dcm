@@ -3,10 +3,13 @@ package com.nice.dcm.distribution.rule.parser;
 import java.util.List;
 
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.LevelConditionContext;
-import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.OrSkillsContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.ORSKILLContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.ORSKILLSETContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SKILLANDSETContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SKILLCONDITIONContext;
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SKILLSETORContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SkillContext;
 import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SkillOrSetContext;
-import com.nice.dcm.distribution.rule.parser.DistributionRulesParser.SkillSetContext;
 import com.nice.dcm.distribution.rule.parser.node.EntityIdentifierNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.SkillLevelConditionNodeImpl;
 import com.nice.dcm.distribution.rule.parser.node.SkillOrSelectorNodeImpl;
@@ -37,38 +40,43 @@ public abstract class AbstractRuleVistorImpl extends BaseRuleVistorImpl {
      * @return
      */	
 	@Override
-	public SkillOrSelectorNodeImpl visitOrSkills(OrSkillsContext ctx) {
-		List<SkillOrSetContext> skillSets = ctx.skillOrSet();
-		List<SkillSetSelector> selectors = skillSets.stream().map(this::getSkillSetSelector).toList();
+	public SkillOrSelectorNodeImpl visitSKILLSETOR(SKILLSETORContext ctx) {
+		List<SkillOrSetContext> skills = ctx.skillOrSet();
+		List<SkillSetSelector> selectors = skills.stream().map(this::getSkillSetSelector).toList();
 		return new SkillOrSelectorNodeImpl(selectors);
 	}
-
+	
 	protected SkillSetSelector getSkillSetSelector(SkillOrSetContext ctx) {
-		SkillSetSelectorNodeImpl node = visitSkillOrSet(ctx);
+		SkillSetSelectorNodeImpl node = (SkillSetSelectorNodeImpl)visit(ctx);
 		return node.getSkillSetSelector();
 	}
 	
     /**
-     * return a single skill or a skill set with multiple skills with or without condition.
-     */	
+     * return a skill set with multiple skills with or without condition.
+     */		
 	@Override
-	public SkillSetSelectorNodeImpl visitSkillOrSet(SkillOrSetContext ctx) {
-		if (ctx.skillSet() != null) {
-			return visitSkillSet(ctx.skillSet());
-		} else {
-			SkillSelector selector = getSkillLevelCondition(ctx.skill());
-			return new SkillSetSelectorNodeImpl(selector);
-		}
+	public SkillSetSelectorNodeImpl visitORSKILLSET(ORSKILLSETContext ctx) {
+		return (SkillSetSelectorNodeImpl)visit(ctx.skillSet());
+	}
+
+	/**
+	 * return a single skill with multiple skills with or without condition.
+	 */	
+	@Override
+	public SkillSetSelectorNodeImpl visitORSKILL(ORSKILLContext ctx) {
+		SkillSelector selector = getSkillLevelCondition(ctx.skill());
+		return new SkillSetSelectorNodeImpl(selector);
 	}
 
     /**
      * return a skill set with multiple skills with or without condition.
      * the relationship between multiple skills is AND.
      */	
+
 	@Override
-	public SkillSetSelectorNodeImpl visitSkillSet(SkillSetContext ctx) {
-		List<SkillContext> skills = ctx.skill();
-		List<SkillSelector> skillSelectors = skills.stream().map(this::getSkillLevelCondition).toList();
+	public SkillSetSelectorNodeImpl visitSKILLANDSET(SKILLANDSETContext ctx) {
+		List<SkillSelector> skillSelectors = ctx.skill().stream()
+			.map(skill -> ((SkillSelectorNodeImpl)visit(skill)).getSkillSelector()).toList();
 		return new SkillSetSelectorNodeImpl(skillSelectors);
 	}
 
@@ -77,18 +85,18 @@ public abstract class AbstractRuleVistorImpl extends BaseRuleVistorImpl {
 	 * skill in any level will match it.
 	 */	
 	@Override
-	public SkillSelectorNodeImpl visitSkill(SkillContext ctx) {
-		EntityIdentifierNodeImpl oidNode = visitEntity_identifier(ctx.entity_identifier());
+	public SkillSelectorNodeImpl visitSKILLCONDITION(SKILLCONDITIONContext ctx) {
+		EntityIdentifierNodeImpl oidNode = (EntityIdentifierNodeImpl)visit(ctx.entity_identifier());
 		LevelConditionContext levelCtx = ctx.levelCondition();
 		if (levelCtx == null) {
 			return new SkillSelectorNodeImpl(oidNode.getEntityIdentifier());
 		}
-		SkillLevelConditionNodeImpl conditionNode = super.visitLevelCondition(levelCtx);
+		SkillLevelConditionNodeImpl conditionNode = (SkillLevelConditionNodeImpl)visit(levelCtx);
 		return new SkillSelectorNodeImpl(oidNode.getEntityIdentifier(), conditionNode.getCondition());
 	}
 	
 	protected SkillSelector getSkillLevelCondition(SkillContext ctx) {
-		SkillSelectorNodeImpl node = visitSkill(ctx);
+		SkillSelectorNodeImpl node = (SkillSelectorNodeImpl)visit(ctx);
 		return node.getSkillSelector();
 	}
 }

@@ -1,14 +1,15 @@
 grammar Condition;
   
-start : (set)* conditiongroup | <EOF> ;
+start : (setdouble)* conditiongroup | <EOF> ;
 
-set : 'set' Identifier '=' expr # ASSSIGNMENT
+setdouble : 'set' Identifier '=' (expr | conditiongroup) # ASSSIGNMENT
 ;
 
 conditiongroup : binarysign conditiongroup # BINARYGRP
         | conditiongroup logicalop conditiongroup # LOGICALGRPT
         | '(' conditiongroup ')'  # CONDITIONGRPT
         | condition # CONDITIONGRP
+        | Identifier # VARIABLEGRP
         ;
 
 condition : expr relop expr	 	# RELOPGRP

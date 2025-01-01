@@ -13,19 +13,25 @@ routingRule: ruleAction (queue_status)? orSkills priority;
 * we can add it here as 
 * ruleAction: QUEUE_TO | ROUTE_TO;
 */
-ruleAction: QUEUE_TO;
+ruleAction: QUEUE_TO #ACTQUEUETO
+;
 
-orSkills: skillOrSet ('and' skillOrSet)*;
+orSkills: skillOrSet ('and' skillOrSet)* #SKILLSETOR
+;
 
-skillOrSet: skill | skillSet;
+skillOrSet: skill #ORSKILL
+	| skillSet #ORSKILLSET
+;
 
-skillSet: '(' skill (',' skill)+ ')' ;
+skillSet: '(' skill (',' skill)+ ')' #SKILLANDSET
+;
 
-skill: '@S:' entity_identifier (levelCondition)?;
+skill: '@S:' entity_identifier (levelCondition)? #SKILLCONDITION
+;
 
 levelCondition:
-           'level' binaryOperator NUMBER
-           | 'level' sqlOperator NUMBER '..' NUMBER
+           'level' binaryOperator NUMBER #BINARYOP
+           | 'level' sqlOperator NUMBER '..' NUMBER #SQLOP
        ;
 
 binaryOperator: 
@@ -50,7 +56,9 @@ sqlOperator: IN | NOT_IN;
 IN: 'in';
 NOT_IN: 'not' [' ']+ 'in';
 
-entity_identifier: UUID_OR_HEXA | NUMBER;
+entity_identifier: UUID_OR_HEXA #OIDHEX
+	| NUMBER #OIDNUMBER
+;
 
 priority: 'with' 'priority' NUMBER;
 
@@ -60,7 +68,8 @@ waitRule: 'wait' NUMBER;
 * we can add it here as 
 * queue_status: LEAST_BUSY_OF;
 */
-queue_status: LEAST_BUSY_OF;
+queue_status: LEAST_BUSY_OF #QSLEASTBUSYOF
+;
 
 // Agent status
 LEAST_BUSY_OF: 'least' [' ']+ 'busy' [' ']+ 'of';

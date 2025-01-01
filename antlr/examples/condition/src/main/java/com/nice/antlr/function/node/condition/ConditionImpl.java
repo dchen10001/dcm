@@ -1,6 +1,8 @@
-package com.nice.antlr.function.node;
+package com.nice.antlr.function.node.condition;
 
+import com.nice.antlr.function.node.expression.Expression;
 import com.nice.antlr.function.node.operator.BinaryOp;
+import com.nice.antlr.function.node.variable.VariableStack;
 
 import lombok.ToString;
 
@@ -17,12 +19,12 @@ public class ConditionImpl implements Condition {
 	}
 
 	@Override
-	public boolean eval(VariableStack variableStack) {
+	public Boolean eval(VariableStack variableStack) {
 		double leftValue = left.eval(variableStack);
 		double rightValue = right.eval(variableStack);
 		boolean flag = this.operator.eval(leftValue, rightValue);
-		if(Execution.isDebugEnable()) {
-			Execution.debug(toExpression(), String.valueOf(flag));
+		if(isDebugEnable()) {
+			debug(toExpression(), String.valueOf(flag));
 		}
 		return flag;
 	}

@@ -1,6 +1,7 @@
-package com.nice.antlr.function.node;
+package com.nice.antlr.function.node.condition;
 
 import com.nice.antlr.function.node.operator.BinarySign;
+import com.nice.antlr.function.node.variable.VariableStack;
 
 public class SignConditionImpl implements Condition {
 	private BinarySign sign;
@@ -13,8 +14,12 @@ public class SignConditionImpl implements Condition {
 	}
 	
 	@Override
-	public boolean eval(VariableStack variableStack) {
-		return sign.eval(condition.eval(variableStack));
+	public Boolean eval(VariableStack variableStack) {
+		boolean flag = sign.eval(condition.eval(variableStack));
+		if(isDebugEnable()) {
+			debug(toExpression(), String.valueOf(flag));
+		}
+		return flag;
 	}
 
 	@Override

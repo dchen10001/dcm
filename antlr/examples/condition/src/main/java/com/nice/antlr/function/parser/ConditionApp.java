@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import com.nice.antlr.condition.parser.ConditionLexer;
 import com.nice.antlr.condition.parser.ConditionParser;
-import com.nice.antlr.function.parser.node.Node;
-import com.nice.antlr.function.parser.node.NodeVisitorImpl;
+import com.nice.antlr.function.parser.visit.ScriptNodeVisitorImpl;
+import com.nice.antlr.function.parser.visit.nodewrapper.NodeWrapper;
 
 public class ConditionApp {
 	private static final Logger logger = LoggerFactory.getLogger(ConditionApp.class);
@@ -26,19 +26,19 @@ public class ConditionApp {
 		
 		String arithmeticExpression = " a + (b + 1) * (c + 2) / (d + 3)";
 		
-		Node node = calculator.parse(arithmeticExpression);
+		NodeWrapper node = calculator.parse(arithmeticExpression);
 
         logger.info(String.format("%s = %s", arg, node));
 	}
 
-	public Node parse(String arithmeticExpression) {
+	public NodeWrapper parse(String arithmeticExpression) {
 		logger.debug("expression: {}", arithmeticExpression);
 		CodePointCharStream input = CharStreams.fromString(arithmeticExpression);
 		ConditionLexer lexer = new ConditionLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		ConditionParser parser = new ConditionParser(tokens);
 		ParseTree tree = parser.start();
-		NodeVisitorImpl visitor = new NodeVisitorImpl();
+		ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 		return visitor.visit(tree);
 	}
 }

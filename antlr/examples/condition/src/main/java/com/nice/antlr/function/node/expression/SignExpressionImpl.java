@@ -1,6 +1,7 @@
-package com.nice.antlr.function.node;
+package com.nice.antlr.function.node.expression;
 
 import com.nice.antlr.function.node.operator.ArithmeticSign;
+import com.nice.antlr.function.node.variable.VariableStack;
 
 public class SignExpressionImpl implements Expression {
 	private ArithmeticSign sign;
@@ -12,7 +13,7 @@ public class SignExpressionImpl implements Expression {
 	}
 	
 	@Override
-	public double eval(VariableStack variableStack) {
+	public Double eval(VariableStack variableStack) {
 		return sign.eval(expression.eval(variableStack));
 	}
 

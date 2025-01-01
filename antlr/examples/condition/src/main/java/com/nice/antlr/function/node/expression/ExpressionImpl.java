@@ -1,16 +1,17 @@
-package com.nice.antlr.function.node;
+package com.nice.antlr.function.node.expression;
 
 import com.nice.antlr.function.node.operator.ArithmeticOp;
 import com.nice.antlr.function.node.operator.ArithmeticSign;
+import com.nice.antlr.function.node.variable.VariableStack;
 
 import lombok.ToString;
 
 @ToString
 public class ExpressionImpl implements Expression {
-	private ArithmeticSign sign;
-	private ArithmeticOp operator;
-	private Expression left;
-	private Expression right;
+	private final ArithmeticSign sign;
+	private final ArithmeticOp operator;
+	private final Expression left;
+	private final Expression right;
 	
 	public ExpressionImpl(ArithmeticOp operator, Expression left, Expression right) {
 		this(null, operator, left, right);
@@ -28,12 +29,12 @@ public class ExpressionImpl implements Expression {
 	}
 
 	@Override
-	public double eval(VariableStack variableStack) {
+	public Double eval(VariableStack variableStack) {
         double leftValue = left.eval(variableStack);
         double rightValue = right.eval(variableStack);
         double value = operator.eval(leftValue, rightValue);       
-		if(Execution.isDebugEnable()) {
-			Execution.debug(toExpression(), String.valueOf(value));
+		if(isDebugEnable()) {
+			debug(toExpression(), String.valueOf(value));
 		}
         return value;
 	}

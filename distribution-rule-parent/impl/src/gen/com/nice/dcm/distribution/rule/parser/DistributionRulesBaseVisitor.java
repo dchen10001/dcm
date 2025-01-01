@@ -46,42 +46,56 @@ public class DistributionRulesBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRuleAction(DistributionRulesParser.RuleActionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitACTQUEUETO(DistributionRulesParser.ACTQUEUETOContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOrSkills(DistributionRulesParser.OrSkillsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSKILLSETOR(DistributionRulesParser.SKILLSETORContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSkillOrSet(DistributionRulesParser.SkillOrSetContext ctx) { return visitChildren(ctx); }
+	@Override public T visitORSKILL(DistributionRulesParser.ORSKILLContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSkillSet(DistributionRulesParser.SkillSetContext ctx) { return visitChildren(ctx); }
+	@Override public T visitORSKILLSET(DistributionRulesParser.ORSKILLSETContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSkill(DistributionRulesParser.SkillContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSKILLANDSET(DistributionRulesParser.SKILLANDSETContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLevelCondition(DistributionRulesParser.LevelConditionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSKILLCONDITION(DistributionRulesParser.SKILLCONDITIONContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitBINARYOP(DistributionRulesParser.BINARYOPContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitSQLOP(DistributionRulesParser.SQLOPContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -102,7 +116,14 @@ public class DistributionRulesBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEntity_identifier(DistributionRulesParser.Entity_identifierContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOIDHEX(DistributionRulesParser.OIDHEXContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitOIDNUMBER(DistributionRulesParser.OIDNUMBERContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -123,5 +144,5 @@ public class DistributionRulesBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitQueue_status(DistributionRulesParser.Queue_statusContext ctx) { return visitChildren(ctx); }
+	@Override public T visitQSLEASTBUSYOF(DistributionRulesParser.QSLEASTBUSYOFContext ctx) { return visitChildren(ctx); }
 }

@@ -35,41 +35,61 @@ public interface DistributionRulesVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRoutingRule(DistributionRulesParser.RoutingRuleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#ruleAction}.
+	 * Visit a parse tree produced by the {@code ACTQUEUETO}
+	 * labeled alternative in {@link DistributionRulesParser#ruleAction}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRuleAction(DistributionRulesParser.RuleActionContext ctx);
+	T visitACTQUEUETO(DistributionRulesParser.ACTQUEUETOContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#orSkills}.
+	 * Visit a parse tree produced by the {@code SKILLSETOR}
+	 * labeled alternative in {@link DistributionRulesParser#orSkills}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOrSkills(DistributionRulesParser.OrSkillsContext ctx);
+	T visitSKILLSETOR(DistributionRulesParser.SKILLSETORContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#skillOrSet}.
+	 * Visit a parse tree produced by the {@code ORSKILL}
+	 * labeled alternative in {@link DistributionRulesParser#skillOrSet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSkillOrSet(DistributionRulesParser.SkillOrSetContext ctx);
+	T visitORSKILL(DistributionRulesParser.ORSKILLContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#skillSet}.
+	 * Visit a parse tree produced by the {@code ORSKILLSET}
+	 * labeled alternative in {@link DistributionRulesParser#skillOrSet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSkillSet(DistributionRulesParser.SkillSetContext ctx);
+	T visitORSKILLSET(DistributionRulesParser.ORSKILLSETContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#skill}.
+	 * Visit a parse tree produced by the {@code SKILLANDSET}
+	 * labeled alternative in {@link DistributionRulesParser#skillSet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSkill(DistributionRulesParser.SkillContext ctx);
+	T visitSKILLANDSET(DistributionRulesParser.SKILLANDSETContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#levelCondition}.
+	 * Visit a parse tree produced by the {@code SKILLCONDITION}
+	 * labeled alternative in {@link DistributionRulesParser#skill}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLevelCondition(DistributionRulesParser.LevelConditionContext ctx);
+	T visitSKILLCONDITION(DistributionRulesParser.SKILLCONDITIONContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BINARYOP}
+	 * labeled alternative in {@link DistributionRulesParser#levelCondition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBINARYOP(DistributionRulesParser.BINARYOPContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SQLOP}
+	 * labeled alternative in {@link DistributionRulesParser#levelCondition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSQLOP(DistributionRulesParser.SQLOPContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DistributionRulesParser#binaryOperator}.
 	 * @param ctx the parse tree
@@ -83,11 +103,19 @@ public interface DistributionRulesVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSqlOperator(DistributionRulesParser.SqlOperatorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#entity_identifier}.
+	 * Visit a parse tree produced by the {@code OIDHEX}
+	 * labeled alternative in {@link DistributionRulesParser#entity_identifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEntity_identifier(DistributionRulesParser.Entity_identifierContext ctx);
+	T visitOIDHEX(DistributionRulesParser.OIDHEXContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OIDNUMBER}
+	 * labeled alternative in {@link DistributionRulesParser#entity_identifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOIDNUMBER(DistributionRulesParser.OIDNUMBERContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link DistributionRulesParser#priority}.
 	 * @param ctx the parse tree
@@ -101,9 +129,10 @@ public interface DistributionRulesVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWaitRule(DistributionRulesParser.WaitRuleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link DistributionRulesParser#queue_status}.
+	 * Visit a parse tree produced by the {@code QSLEASTBUSYOF}
+	 * labeled alternative in {@link DistributionRulesParser#queue_status}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitQueue_status(DistributionRulesParser.Queue_statusContext ctx);
+	T visitQSLEASTBUSYOF(DistributionRulesParser.QSLEASTBUSYOFContext ctx);
 }

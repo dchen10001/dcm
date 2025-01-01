@@ -1,4 +1,4 @@
-package com.nice.antlr.function.parser.node;
+package com.nice.antlr.function.parser.visit.nodewrapper;
 
 import com.nice.antlr.function.node.Execution;
 
@@ -7,15 +7,15 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class ExecutionNodeImpl implements Node {
+public class ExecutionWrapperImpl implements NodeWrapper<Execution> {
 	private final Execution execution;
 	
-	public ExecutionNodeImpl(Execution execution) {
+	public ExecutionWrapperImpl(Execution execution) {
 		this.execution = execution;
 	}
 	
 	@Override
-	public Object getObject() {
+	public Execution getNode() {
 		return this.getExecution();
 	}
 }

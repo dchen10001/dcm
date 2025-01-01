@@ -1,26 +1,26 @@
 package com.nice.antlr.condition.parser.node;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
 
 import com.nice.antlr.condition.parser.ConditionLexer;
 import com.nice.antlr.condition.parser.ConditionParser;
-import com.nice.antlr.function.node.Condition;
-import com.nice.antlr.function.node.VariableStack;
-import com.nice.antlr.function.node.VariableStackImpl;
-import com.nice.antlr.function.parser.node.ConditionNodeImpl;
-import com.nice.antlr.function.parser.node.ExpressionNodeImpl;
-import com.nice.antlr.function.parser.node.NodeVisitorImpl;
+import com.nice.antlr.function.node.condition.Condition;
+import com.nice.antlr.function.node.variable.VariableStack;
+import com.nice.antlr.function.node.variable.VariableStackImpl;
+import com.nice.antlr.function.parser.visit.ScriptNodeVisitorImpl;
+import com.nice.antlr.function.parser.visit.nodewrapper.ConditionWrapperImpl;
 
-class ConditionVisitorImplTest {
+class ScriptNodeVisitorImplTest {
 	String arithmeticExpressions[] = { 			
 			" a  + b < c + d ",
 			" a != b || c < d ",
@@ -68,11 +68,19 @@ class ConditionVisitorImplTest {
 	@Test
 	void testBasicVisit() {
 		VariableStack variableStack = new VariableStackImpl();
-		NodeVisitorImpl visitor = new NodeVisitorImpl();
-		String expression = "2.0 < 3.0 ";
+		ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
+		String expression = "a && 2.0 < 3.0 ";
 		Condition condition = parse(expression, visitor);
-		assertEquals("2.0<3.0", condition.toExpression(), "expression: " + expression);
+		assertEquals("a&&2.0<3.0", condition.toExpression(), "expression: " + expression);
+		assertTrue(visitor.getAssignmentNames(Double.class).isEmpty());
+		assertTrue(visitor.getAssignmentNames(Boolean.class).isEmpty());
+		assertTrue(visitor.getVariableNames(Double.class).isEmpty());
+		
+		assertEquals(List.of("a"), visitor.getVariableNames(Boolean.class));
+		
 		variableStack.clear();
+		variableStack.setVariable("a", Boolean.TRUE);
+		
 		assertEquals(true, condition.eval(variableStack));
 		
 		//case 1: less than
@@ -204,7 +212,7 @@ class ConditionVisitorImplTest {
 	@Test
 	void testBasicGroupVisit() {
 		VariableStack variableStack = new VariableStackImpl();
-		NodeVisitorImpl visitor = new NodeVisitorImpl();
+		ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 		String expression = "2.0 < 3.0 && 2.0 != 3.0 ";
 		Condition condition = parse(expression, visitor);
 		assertEquals("2.0<3.0&&2.0!=3.0", condition.toExpression(), "expression: " + expression);
@@ -369,7 +377,7 @@ class ConditionVisitorImplTest {
 	void testVisit() {
 		for (int i = 0; i < arithmeticExpressions.length; i++) {
 			System.out.println("i: " + i);
-			NodeVisitorImpl visitor = new NodeVisitorImpl();
+			ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 			String arithmeticExpression = arithmeticExpressions[i];
 			Condition condition = parse(arithmeticExpression, visitor);
 			String expression = condition.toExpression();
@@ -377,7 +385,7 @@ class ConditionVisitorImplTest {
 			
 			arithmeticExpression = expressions[i].replaceAll("\\s", "");
 			assertEquals(arithmeticExpression, expression, "expression[" + i + "]: " + arithmeticExpressions[i]);
-			Set<String> names = visitor.getVariableNames().stream().collect(Collectors.toSet());
+			Set<String> names = visitor.getVariableNames(Double.class).stream().collect(Collectors.toSet());
 			assertEquals(Set.of("a", "b", "c", "d"), names);
 		}
 	}
@@ -385,7 +393,7 @@ class ConditionVisitorImplTest {
 	@Test
 	void testEval() {
 		for (int i = 0; i < arithmeticExpressions.length; i++) {
-			NodeVisitorImpl visitor = new NodeVisitorImpl();
+			ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
 			String arithmeticExpression = arithmeticExpressions[i];
 			Condition condition = parse(arithmeticExpression, visitor);
 			double a = 0.0;
@@ -413,13 +421,14 @@ class ConditionVisitorImplTest {
 		
 	}
 
-	public Condition parse(String arithmeticExpression, NodeVisitorImpl visitor) {
+	public Condition parse(String arithmeticExpression, ScriptNodeVisitorImpl visitor) {
+		visitor.reset();
 		CodePointCharStream input = CharStreams.fromString(arithmeticExpression);
 		ConditionLexer lexer = new ConditionLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		ConditionParser parser = new ConditionParser(tokens);
 		//ParseTree tree = parser.start();
-		ConditionNodeImpl node = (ConditionNodeImpl)parser.conditiongroup().accept(visitor);
+		ConditionWrapperImpl node = (ConditionWrapperImpl)parser.conditiongroup().accept(visitor);
 		//ConditionNodeImpl node = (ConditionNodeImpl)visitor.visit(tree);
 		return node.getCondition();
 	}
