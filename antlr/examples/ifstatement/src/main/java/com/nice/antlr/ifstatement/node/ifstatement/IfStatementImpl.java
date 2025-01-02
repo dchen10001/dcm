@@ -27,7 +27,16 @@ public class IfStatementImpl implements IfStatement {
 
 	@Override
 	public String toExpression() {
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("IF").append(this.condition.toExpression()).append("\n")
+			.append(this.action.toExpression()).append("\n");
+		
+		for(ElseIfStatement elseIfStatement : elseIfStatements) {
+			sb.append(elseIfStatement.toExpression()).append("\n");
+		}
+		
+        sb.append(this.elseAction.toExpression()).append("\n");
+		return sb.toString();
 	}
 
 	@Override
@@ -43,7 +52,6 @@ public class IfStatementImpl implements IfStatement {
 				return elseIfAction;
 			}
 		}
-
 		return this.elseAction;
 	}
 }

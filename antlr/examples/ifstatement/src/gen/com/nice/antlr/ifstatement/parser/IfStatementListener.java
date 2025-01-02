@@ -276,15 +276,15 @@ public interface IfStatementListener extends ParseTreeListener {
 	 */
 	void exitLogicalop(IfStatementParser.LogicalopContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PRINTSTMT}
+	 * Enter a parse tree produced by the {@code PRINTDOUBLE}
 	 * labeled alternative in {@link IfStatementParser#printstmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterPRINTSTMT(IfStatementParser.PRINTSTMTContext ctx);
+	void enterPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PRINTSTMT}
+	 * Exit a parse tree produced by the {@code PRINTDOUBLE}
 	 * labeled alternative in {@link IfStatementParser#printstmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitPRINTSTMT(IfStatementParser.PRINTSTMTContext ctx);
+	void exitPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx);
 }

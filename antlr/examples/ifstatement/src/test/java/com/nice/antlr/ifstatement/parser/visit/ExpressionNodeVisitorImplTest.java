@@ -1,4 +1,4 @@
-package com.nice.antlr.condition.parser.node;
+package com.nice.antlr.ifstatement.parser.visit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,17 +10,16 @@ import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
-import com.nice.antlr.condition.parser.ConditionLexer;
-import com.nice.antlr.condition.parser.ConditionParser;
-import com.nice.antlr.condition.parser.ConditionParser.ExprContext;
-import com.nice.antlr.function.node.expression.Expression;
-import com.nice.antlr.function.node.variable.VariableStack;
-import com.nice.antlr.function.node.variable.VariableStackImpl;
-import com.nice.antlr.function.parser.listener.ThrowingErrorListener;
-import com.nice.antlr.function.parser.visit.ScriptNodeVisitorImpl;
-import com.nice.antlr.function.parser.visit.nodewrapper.ExpressionWrapperImpl;
+import com.nice.antlr.ifstatement.node.expression.Expression;
+import com.nice.antlr.ifstatement.node.variable.VariableStack;
+import com.nice.antlr.ifstatement.node.variable.VariableStackImpl;
+import com.nice.antlr.ifstatement.parser.ConditionLexer;
+import com.nice.antlr.ifstatement.parser.IfStatementParser;
+import com.nice.antlr.ifstatement.parser.IfStatementParser.ExprContext;
+import com.nice.antlr.ifstatement.parser.listener.ThrowingErrorListener;
+import com.nice.antlr.ifstatement.parser.visit.nodewrapper.ExpressionWrapperImpl;
 
-class ExpressionVisitorImplTest {
+class ExpressionNodeVisitorImplTest {
 	String arithmeticExpressions[] = {
 			"a + b * c - d",
 			"a * b + c/d",
@@ -176,7 +175,7 @@ class ExpressionVisitorImplTest {
 		}
 		
 	}
-
+	
 	public Expression parse(String arithmeticExpression, ScriptNodeVisitorImpl visitor) {
 		CodePointCharStream input = CharStreams.fromString(arithmeticExpression);
 		ConditionLexer lexer = new ConditionLexer(input);
@@ -185,11 +184,12 @@ class ExpressionVisitorImplTest {
     	lexer.addErrorListener(errorListener);
 
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		ConditionParser parser = new ConditionParser(tokens);
+		IfStatementParser parser = new IfStatementParser(tokens);
 		parser.addErrorListener(errorListener);
 		ExprContext expr = parser.expr();
 		
 		ExpressionWrapperImpl node = (ExpressionWrapperImpl)expr.accept(visitor);
 		return node.getExpression();
 	}
+
 }

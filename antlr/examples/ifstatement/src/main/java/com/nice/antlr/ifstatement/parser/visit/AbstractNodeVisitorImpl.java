@@ -1,5 +1,10 @@
-package com.nice.antlr.ifstatement.parser.node1;
+package com.nice.antlr.ifstatement.parser.visit;
 
+import java.util.List;
+import java.util.Map;
+
+import com.nice.antlr.ifstatement.node.variable.NodeVariableStack;
+import com.nice.antlr.ifstatement.node.variable.NodeVariableStackImpl;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.AddopContext;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.ArithmeticsignContext;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.BinarysignContext;
@@ -13,6 +18,26 @@ import com.nice.antlr.ifstatement.parser.IfStatementParser.RelopContext;
 import com.nice.antlr.ifstatement.parser.visit.nodewrapper.NodeWrapper;
 
 public abstract class AbstractNodeVisitorImpl extends CommonNodeVisitorImpl {
+	protected NodeVariableStack variableStack = new NodeVariableStackImpl();
+
+	public void reset() {
+		this.variableStack.clear();
+	}
+	
+	public List<String> getVariableNames(Class<?> type) {
+		return variableStack.getVariables().entrySet()
+		.stream().filter(e -> e.getValue().equals(type))
+		.map(Map.Entry::getKey)
+		.toList();
+	}
+	
+	public List<String> getAssignmentNames(Class<?> type) {
+		return variableStack.getAssignments().entrySet()
+		.stream().filter(e -> e.getValue().equals(type))
+		.map(Map.Entry::getKey)
+		.toList();
+	}
+	
 	@Override
 	public NodeWrapper<?> visitCONDITIONGRPT(CONDITIONGRPTContext ctx) {
 		logger.trace("Visiting CONDITIONGRPT: {}", ctx.getText());

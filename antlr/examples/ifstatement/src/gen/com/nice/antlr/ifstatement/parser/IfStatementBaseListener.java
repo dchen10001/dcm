@@ -305,13 +305,13 @@ public class IfStatementBaseListener implements IfStatementListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPRINTSTMT(IfStatementParser.PRINTSTMTContext ctx) { }
+	@Override public void enterPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPRINTSTMT(IfStatementParser.PRINTSTMTContext ctx) { }
+	@Override public void exitPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

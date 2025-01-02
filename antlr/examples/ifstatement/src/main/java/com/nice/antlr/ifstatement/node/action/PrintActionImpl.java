@@ -13,7 +13,7 @@ public class PrintActionImpl implements Action {
 	
 	@Override
 	public String toExpression() {
-		return null;
+		return "PRINT " + value;
 	}
 
 	@Override

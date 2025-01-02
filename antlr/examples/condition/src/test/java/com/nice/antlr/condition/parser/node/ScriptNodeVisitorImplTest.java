@@ -17,6 +17,7 @@ import com.nice.antlr.condition.parser.ConditionParser;
 import com.nice.antlr.function.node.condition.Condition;
 import com.nice.antlr.function.node.variable.VariableStack;
 import com.nice.antlr.function.node.variable.VariableStackImpl;
+import com.nice.antlr.function.parser.listener.ThrowingErrorListener;
 import com.nice.antlr.function.parser.visit.ScriptNodeVisitorImpl;
 import com.nice.antlr.function.parser.visit.nodewrapper.ConditionWrapperImpl;
 
@@ -425,6 +426,10 @@ class ScriptNodeVisitorImplTest {
 		visitor.reset();
 		CodePointCharStream input = CharStreams.fromString(arithmeticExpression);
 		ConditionLexer lexer = new ConditionLexer(input);
+    	lexer.removeErrorListeners();
+    	ThrowingErrorListener errorListener = new ThrowingErrorListener();
+    	lexer.addErrorListener(errorListener);
+
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		ConditionParser parser = new ConditionParser(tokens);
 		//ParseTree tree = parser.start();

@@ -1,4 +1,4 @@
-package com.nice.antlr.ifstatement.parser.node1;
+package com.nice.antlr.ifstatement.parser.visit;
 
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;

@@ -186,5 +186,5 @@ public class IfStatementBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPRINTSTMT(IfStatementParser.PRINTSTMTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx) { return visitChildren(ctx); }
 }

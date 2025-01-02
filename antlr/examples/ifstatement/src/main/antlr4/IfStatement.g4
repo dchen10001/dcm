@@ -52,7 +52,7 @@ relop :  '==' | '!=' | '>' | '<' | '>=' | '<=';
 
 logicalop : '||' | '&&' ;
 
-printstmt : PRINT DOUBLE # PRINTSTMT
+printstmt : PRINT DOUBLE # PRINTDOUBLE
 ;
 
 // lexer

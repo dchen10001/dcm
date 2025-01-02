@@ -169,10 +169,10 @@ public interface IfStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLogicalop(IfStatementParser.LogicalopContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PRINTSTMT}
+	 * Visit a parse tree produced by the {@code PRINTDOUBLE}
 	 * labeled alternative in {@link IfStatementParser#printstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPRINTSTMT(IfStatementParser.PRINTSTMTContext ctx);
+	T visitPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx);
 }

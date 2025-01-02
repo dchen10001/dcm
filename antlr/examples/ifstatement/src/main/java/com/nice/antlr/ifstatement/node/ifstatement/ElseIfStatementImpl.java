@@ -20,8 +20,10 @@ public class ElseIfStatementImpl implements ElseIfStatement {
 	
 	@Override
 	public String toExpression() {
-		return null;
+		return "ELSEIF" + this.condition.toExpression() + "\n" 
+				+ this.action.toExpression();
 	}
+	
 	@Override
 	public Action eval(@NonNull VariableStack variableStack) {
 		if (this.condition.eval(variableStack).booleanValue()) {

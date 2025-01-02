@@ -1331,21 +1331,21 @@ public class IfStatementParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class PRINTSTMTContext extends PrintstmtContext {
+	public static class PRINTDOUBLEContext extends PrintstmtContext {
 		public TerminalNode PRINT() { return getToken(IfStatementParser.PRINT, 0); }
 		public TerminalNode DOUBLE() { return getToken(IfStatementParser.DOUBLE, 0); }
-		public PRINTSTMTContext(PrintstmtContext ctx) { copyFrom(ctx); }
+		public PRINTDOUBLEContext(PrintstmtContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof IfStatementListener ) ((IfStatementListener)listener).enterPRINTSTMT(this);
+			if ( listener instanceof IfStatementListener ) ((IfStatementListener)listener).enterPRINTDOUBLE(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof IfStatementListener ) ((IfStatementListener)listener).exitPRINTSTMT(this);
+			if ( listener instanceof IfStatementListener ) ((IfStatementListener)listener).exitPRINTDOUBLE(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof IfStatementVisitor ) return ((IfStatementVisitor<? extends T>)visitor).visitPRINTSTMT(this);
+			if ( visitor instanceof IfStatementVisitor ) return ((IfStatementVisitor<? extends T>)visitor).visitPRINTDOUBLE(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1354,7 +1354,7 @@ public class IfStatementParser extends Parser {
 		PrintstmtContext _localctx = new PrintstmtContext(_ctx, getState());
 		enterRule(_localctx, 28, RULE_printstmt);
 		try {
-			_localctx = new PRINTSTMTContext(_localctx);
+			_localctx = new PRINTDOUBLEContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(134);
