@@ -25,7 +25,14 @@ public class IfStatementBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitASSSIGNMENT(IfStatementParser.ASSSIGNMENTContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEXPRASSSIGNMENT(IfStatementParser.EXPRASSSIGNMENTContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCNDASSSIGNMENT(IfStatementParser.CNDASSSIGNMENTContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -82,6 +89,13 @@ public class IfStatementBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitCONDITIONGRPT(IfStatementParser.CONDITIONGRPTContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitBOOLEAN(IfStatementParser.BOOLEANContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

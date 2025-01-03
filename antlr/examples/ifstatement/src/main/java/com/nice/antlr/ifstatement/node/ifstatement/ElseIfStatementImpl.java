@@ -6,7 +6,6 @@ import com.nice.antlr.ifstatement.node.variable.VariableStack;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.AllArgsConstructor;
 
 @Getter
 public class ElseIfStatementImpl implements ElseIfStatement {
@@ -20,13 +19,23 @@ public class ElseIfStatementImpl implements ElseIfStatement {
 	
 	@Override
 	public String toExpression() {
-		return "ELSEIF" + this.condition.toExpression() + "\n" 
-				+ this.action.toExpression();
+		StringBuilder sb = new StringBuilder();
+		sb.append("elseif ").append(this.condition.toExpression())
+		.append(" {\n    ").append(action.toExpression())
+		.append("\n}\n");
+		return sb.toString();
 	}
 	
 	@Override
 	public Action eval(@NonNull VariableStack variableStack) {
+		if(isDebugEnable()) {
+			debug("ElseIf " + this.condition.toExpression());
+		}
+		
 		if (this.condition.eval(variableStack).booleanValue()) {
+			if(isDebugEnable()) {
+				debug("ElseIf return", this.action.toExpression());
+			}
 			return this.action;
 		}
 		return null;

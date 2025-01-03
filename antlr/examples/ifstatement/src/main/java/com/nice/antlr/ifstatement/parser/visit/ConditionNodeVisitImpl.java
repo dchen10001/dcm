@@ -1,5 +1,6 @@
 package com.nice.antlr.ifstatement.parser.visit;
 
+import com.nice.antlr.ifstatement.node.condition.BooleanConstantImpl;
 import com.nice.antlr.ifstatement.node.condition.BooleanVariableImpl;
 import com.nice.antlr.ifstatement.node.condition.Condition;
 import com.nice.antlr.ifstatement.node.condition.ConditionImpl;
@@ -10,6 +11,7 @@ import com.nice.antlr.ifstatement.node.operator.BinaryOp;
 import com.nice.antlr.ifstatement.node.operator.BinarySign;
 import com.nice.antlr.ifstatement.node.operator.LogicOp;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.BINARYGRPContext;
+import com.nice.antlr.ifstatement.parser.IfStatementParser.BOOLEANContext;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.LOGICALGRPTContext;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.RELOPGRPContext;
 import com.nice.antlr.ifstatement.parser.IfStatementParser.VARIABLEGRPContext;
@@ -56,4 +58,11 @@ public abstract class ConditionNodeVisitImpl extends ExpressionNodeVisitorImpl {
 		return new ConditionWrapperImpl(condition);
 	}
 	
+
+	@Override
+	public ConditionWrapperImpl visitBOOLEAN(BOOLEANContext ctx) {
+		logger.trace("Visiting BOOLEAN: {}", ctx.getText());
+		Condition condition = new BooleanConstantImpl("true".equals(ctx.getText()));
+		return new ConditionWrapperImpl(condition);
+	}
 }

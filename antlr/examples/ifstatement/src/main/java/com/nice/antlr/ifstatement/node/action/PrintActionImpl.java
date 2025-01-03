@@ -2,8 +2,10 @@ package com.nice.antlr.ifstatement.node.action;
 
 import com.nice.antlr.ifstatement.node.variable.VariableStack;
 
+import lombok.Getter;
 import lombok.NonNull;
 
+@Getter
 public class PrintActionImpl implements Action {
 	private final double value;
 	

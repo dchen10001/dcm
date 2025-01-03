@@ -21,9 +21,10 @@ ELSE=20
 ELSEIF=21
 ENDIF=22
 PRINT=23
-DOUBLE=24
-Identifier=25
-WS=26
+BOOLEAN=24
+DOUBLE=25
+Identifier=26
+WS=27
 'set'=1
 '='=2
 '('=3

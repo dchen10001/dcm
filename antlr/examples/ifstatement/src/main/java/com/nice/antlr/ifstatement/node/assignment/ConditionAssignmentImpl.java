@@ -33,4 +33,9 @@ public class ConditionAssignmentImpl implements Assignment<Condition> {
 	public Condition getRightValue() {
 		return this.condition;
 	}
+
+	@Override
+	public Class<Boolean> getValueType() {
+		return Boolean.class;
+	}
 }

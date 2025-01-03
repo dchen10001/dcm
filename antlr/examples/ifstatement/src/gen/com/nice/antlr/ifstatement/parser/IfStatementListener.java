@@ -18,17 +18,29 @@ public interface IfStatementListener extends ParseTreeListener {
 	 */
 	void exitStart(IfStatementParser.StartContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ASSSIGNMENT}
-	 * labeled alternative in {@link IfStatementParser#setdouble}.
+	 * Enter a parse tree produced by the {@code EXPRASSSIGNMENT}
+	 * labeled alternative in {@link IfStatementParser#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void enterASSSIGNMENT(IfStatementParser.ASSSIGNMENTContext ctx);
+	void enterEXPRASSSIGNMENT(IfStatementParser.EXPRASSSIGNMENTContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ASSSIGNMENT}
-	 * labeled alternative in {@link IfStatementParser#setdouble}.
+	 * Exit a parse tree produced by the {@code EXPRASSSIGNMENT}
+	 * labeled alternative in {@link IfStatementParser#assignment}.
 	 * @param ctx the parse tree
 	 */
-	void exitASSSIGNMENT(IfStatementParser.ASSSIGNMENTContext ctx);
+	void exitEXPRASSSIGNMENT(IfStatementParser.EXPRASSSIGNMENTContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CNDASSSIGNMENT}
+	 * labeled alternative in {@link IfStatementParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void enterCNDASSSIGNMENT(IfStatementParser.CNDASSSIGNMENTContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CNDASSSIGNMENT}
+	 * labeled alternative in {@link IfStatementParser#assignment}.
+	 * @param ctx the parse tree
+	 */
+	void exitCNDASSSIGNMENT(IfStatementParser.CNDASSSIGNMENTContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link IfStatementParser#ifstmt}.
 	 * @param ctx the parse tree
@@ -119,6 +131,18 @@ public interface IfStatementListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCONDITIONGRPT(IfStatementParser.CONDITIONGRPTContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BOOLEAN}
+	 * labeled alternative in {@link IfStatementParser#conditiongroup}.
+	 * @param ctx the parse tree
+	 */
+	void enterBOOLEAN(IfStatementParser.BOOLEANContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BOOLEAN}
+	 * labeled alternative in {@link IfStatementParser#conditiongroup}.
+	 * @param ctx the parse tree
+	 */
+	void exitBOOLEAN(IfStatementParser.BOOLEANContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code RELOPGRP}
 	 * labeled alternative in {@link IfStatementParser#condition}.

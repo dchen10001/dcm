@@ -40,7 +40,7 @@ public class VariableStackImpl implements VariableStack {
 	@Override
 	public <T> T getVariableValue(String name, Class<T> type) {
 		if (this.variableType.containsKey(name) && !this.variableType.get(name).equals(type)) {
-			throw new IllegalArgumentException("Variable " + name + " is defined as another type");
+			throw new IllegalArgumentException("Variable " + name + " is defined as another type" + this.variableType.get(name) + " but requested as " + type);
 		}
 
 		if (!this.variableValue.containsKey(name)) {

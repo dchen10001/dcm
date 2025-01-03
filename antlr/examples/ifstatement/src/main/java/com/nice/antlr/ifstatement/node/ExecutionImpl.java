@@ -13,18 +13,27 @@ import lombok.NonNull;
 public class ExecutionImpl implements Execution {
 	private final List<Assignment<?>> assignments;
 	private final IfStatement ifStatement;
-	
-	public ExecutionImpl(@NonNull List<Assignment<?>> assignments, @NonNull  IfStatement ifStatement) {
+
+	public ExecutionImpl(@NonNull List<Assignment<?>> assignments, @NonNull IfStatement ifStatement) {
 		this.assignments = assignments;
 		this.ifStatement = ifStatement;
 	}
-	
+
 	@Override
 	public Action eval(VariableStack variableStack) {
-		for (Assignment<?> assignment : assignments) {
-			assignment.eval(variableStack);
+		if (isDebugEnable()) {
+			debug("<------------------ Start Execution Debug Info-------------------");
 		}
-		return ifStatement.eval(variableStack);
+		try {
+			for (Assignment<?> assignment : assignments) {
+				assignment.eval(variableStack);
+			}
+			return ifStatement.eval(variableStack);
+		} finally {
+			if (isDebugEnable()) {
+				debug("<------------------ End Execution Debug Info-------------------");
+			}
+		}
 	}
 
 	@Override

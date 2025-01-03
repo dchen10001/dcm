@@ -29,13 +29,25 @@ public class IfStatementBaseListener implements IfStatementListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterASSSIGNMENT(IfStatementParser.ASSSIGNMENTContext ctx) { }
+	@Override public void enterEXPRASSSIGNMENT(IfStatementParser.EXPRASSSIGNMENTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitASSSIGNMENT(IfStatementParser.ASSSIGNMENTContext ctx) { }
+	@Override public void exitEXPRASSSIGNMENT(IfStatementParser.EXPRASSSIGNMENTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCNDASSSIGNMENT(IfStatementParser.CNDASSSIGNMENTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCNDASSSIGNMENT(IfStatementParser.CNDASSSIGNMENTContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -132,6 +144,18 @@ public class IfStatementBaseListener implements IfStatementListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCONDITIONGRPT(IfStatementParser.CONDITIONGRPTContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBOOLEAN(IfStatementParser.BOOLEANContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBOOLEAN(IfStatementParser.BOOLEANContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

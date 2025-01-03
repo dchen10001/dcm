@@ -17,12 +17,19 @@ public interface IfStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(IfStatementParser.StartContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ASSSIGNMENT}
-	 * labeled alternative in {@link IfStatementParser#setdouble}.
+	 * Visit a parse tree produced by the {@code EXPRASSSIGNMENT}
+	 * labeled alternative in {@link IfStatementParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitASSSIGNMENT(IfStatementParser.ASSSIGNMENTContext ctx);
+	T visitEXPRASSSIGNMENT(IfStatementParser.EXPRASSSIGNMENTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CNDASSSIGNMENT}
+	 * labeled alternative in {@link IfStatementParser#assignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCNDASSSIGNMENT(IfStatementParser.CNDASSSIGNMENTContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link IfStatementParser#ifstmt}.
 	 * @param ctx the parse tree
@@ -76,6 +83,13 @@ public interface IfStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCONDITIONGRPT(IfStatementParser.CONDITIONGRPTContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BOOLEAN}
+	 * labeled alternative in {@link IfStatementParser#conditiongroup}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBOOLEAN(IfStatementParser.BOOLEANContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code RELOPGRP}
 	 * labeled alternative in {@link IfStatementParser#condition}.
