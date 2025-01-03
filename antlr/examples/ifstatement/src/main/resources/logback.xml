@@ -8,7 +8,7 @@
         </layout>
     </appender>
     
-    <logger name="com.nice.antlr.function.node.Execution" level="debug" additivity="false">    
+    <logger name="com.nice.antlr.ifstatement.node.BaseNode" level="debug" additivity="false">    
      <appender-ref ref="CONSOLE"/>
     </logger>
     <root level="error">

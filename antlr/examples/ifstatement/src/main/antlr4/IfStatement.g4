@@ -1,8 +1,9 @@
 grammar IfStatement;
   
-start : (setdouble)* ifstmt | <EOF> ;
+start : (assignment)* ifstmt | <EOF> ;
 
-setdouble : 'set' Identifier '=' (expr | conditiongroup) # ASSSIGNMENT
+assignment : 'set' Identifier '=' expr # EXPRASSSIGNMENT
+			 | 'set' Identifier '=' conditiongroup # CNDASSSIGNMENT
 ;
 
 ifstmt : IF conditiongroup 
@@ -24,6 +25,7 @@ conditiongroup : binarysign conditiongroup # BINARYGRP
         | conditiongroup logicalop conditiongroup # LOGICALGRPT
         | '(' conditiongroup ')'  # CONDITIONGRPT
         | condition # CONDITIONGRP
+        | BOOLEAN      # BOOLEAN
         | Identifier # VARIABLEGRP
         ;
 
@@ -52,7 +54,7 @@ relop :  '==' | '!=' | '>' | '<' | '>=' | '<=';
 
 logicalop : '||' | '&&' ;
 
-printstmt : PRINT DOUBLE # PRINTSTMT
+printstmt : PRINT DOUBLE # PRINTDOUBLE
 ;
 
 // lexer
@@ -62,8 +64,10 @@ ELSEIF: 'elseif';
 ENDIF: 'endif';
 PRINT: 'print';
 
+BOOLEAN : 'true' | 'false' ;
 DOUBLE : ('0' .. '9') + ('.' ('0' .. '9') +)? ;
 Identifier : [a-zA-Z_] [a-zA-Z_0-9]* ;
+
 
 WS : [ \r\n\t] + -> skip ;
 

@@ -27,13 +27,27 @@ public class IfStatementImpl implements IfStatement {
 
 	@Override
 	public String toExpression() {
-		return null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("if ").append(this.condition.toExpression())
+			.append(" {\n    ")
+			.append(this.action.toExpression())
+			.append("\n}\n");
+		
+		for(ElseIfStatement elseIfStatement : elseIfStatements) {
+			sb.append(elseIfStatement.toExpression());
+		}
+		
+        sb.append("else {\n    ")
+        .append(this.elseAction.toExpression()).append("\n}\n");
+		return sb.toString();
 	}
 
 	@Override
 	public Action eval(@NonNull VariableStack variableStack) {
-
 		if (this.condition.eval(variableStack).booleanValue()) {
+			if (isDebugEnable()) {
+				debug("If return", this.action.toExpression());
+			}
 			return this.action;
 		}
 
@@ -43,7 +57,10 @@ public class IfStatementImpl implements IfStatement {
 				return elseIfAction;
 			}
 		}
-
+		
+		if (isDebugEnable()) {
+			debug("Else return", this.elseAction.toExpression());
+		}
 		return this.elseAction;
 	}
 }

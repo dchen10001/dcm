@@ -32,4 +32,9 @@ public class ExpressionAssignmentImpl implements Assignment<Expression> {
 	public Expression getRightValue() {
 		return this.expression;
 	}
+
+	@Override
+	public Class<Double> getValueType() {
+		return Double.class;
+	}
 }

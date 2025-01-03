@@ -20,5 +20,9 @@ public interface BaseNode<T> {
 		logger.debug("{} : {}", script, value);
 	}
 	
+	default void debug(String msg) {
+		logger.debug(msg);
+	}
+	
 	T eval(@NonNull VariableStack variableStack);
 }

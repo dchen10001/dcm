@@ -1,4 +1,4 @@
-package com.nice.antlr.condition.parser.node;
+package com.nice.antlr.ifstatement.parser.visit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,17 +10,16 @@ import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
-import com.nice.antlr.condition.parser.ConditionLexer;
-import com.nice.antlr.condition.parser.ConditionParser;
-import com.nice.antlr.condition.parser.ConditionParser.ExprContext;
-import com.nice.antlr.function.node.expression.Expression;
-import com.nice.antlr.function.node.variable.VariableStack;
-import com.nice.antlr.function.node.variable.VariableStackImpl;
-import com.nice.antlr.function.parser.listener.ThrowingErrorListener;
-import com.nice.antlr.function.parser.visit.ScriptNodeVisitorImpl;
-import com.nice.antlr.function.parser.visit.nodewrapper.ExpressionWrapperImpl;
+import com.nice.antlr.ifstatement.node.expression.Expression;
+import com.nice.antlr.ifstatement.node.variable.VariableStack;
+import com.nice.antlr.ifstatement.node.variable.VariableStackImpl;
+import com.nice.antlr.ifstatement.parser.IfStatementLexer;
+import com.nice.antlr.ifstatement.parser.IfStatementParser;
+import com.nice.antlr.ifstatement.parser.IfStatementParser.ExprContext;
+import com.nice.antlr.ifstatement.parser.listener.ThrowingErrorListener;
+import com.nice.antlr.ifstatement.parser.visit.nodewrapper.ExpressionWrapperImpl;
 
-class ExpressionVisitorImplTest {
+class ExpressionNodeVisitorImplTest {
 	String arithmeticExpressions[] = {
 			"a + b * c - d",
 			"a * b + c/d",
@@ -43,13 +42,27 @@ class ExpressionVisitorImplTest {
 	@Test
 	void testBasicVisit() {
 		VariableStack variableStack = new VariableStackImpl();
-		ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
+		ExecutionNodeVisitorImpl visitor = new ExecutionNodeVisitorImpl();
 
-		String expression = "2 + 4";
+		String expression = "2";
 		Expression node = parse(expression, visitor);
+		assertEquals("2.0", node.toExpression());
+		variableStack.clear();
+		assertEquals(2.0, node.eval(variableStack));
+
+		expression = "2 + 4";
+		node = parse(expression, visitor);
 		assertEquals("2.0+4.0", node.toExpression());
 		variableStack.clear();
 		assertEquals(6, node.eval(variableStack));
+
+		
+		expression = "a";
+		node = parse(expression, visitor);
+		assertEquals("a", node.toExpression());
+		variableStack.clear();
+		variableStack.setVariable("a", 2d);
+		assertEquals(2d, node.eval(variableStack));
 		
 		expression = "a + b";
 		node = parse(expression, visitor);
@@ -135,7 +148,7 @@ class ExpressionVisitorImplTest {
 	@Test
 	void testVisit() {
 		for (int i = 0; i < arithmeticExpressions.length; i++) {
-			ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
+			ExecutionNodeVisitorImpl visitor = new ExecutionNodeVisitorImpl();
 			String arithmeticExpression = arithmeticExpressions[i];
 			Expression node = parse(arithmeticExpression, visitor);
 			String expression = node.toExpression();
@@ -149,7 +162,7 @@ class ExpressionVisitorImplTest {
 	@Test
 	void testEval() {
 		for (int i = 0; i < arithmeticExpressions.length; i++) {
-			ScriptNodeVisitorImpl visitor = new ScriptNodeVisitorImpl();
+			ExecutionNodeVisitorImpl visitor = new ExecutionNodeVisitorImpl();
 			String arithmeticExpression = arithmeticExpressions[i];
 			Expression node = parse(arithmeticExpression, visitor);
 			double a = 0.0;
@@ -176,20 +189,22 @@ class ExpressionVisitorImplTest {
 		}
 		
 	}
-
-	public Expression parse(String arithmeticExpression, ScriptNodeVisitorImpl visitor) {
+	
+	public Expression parse(String arithmeticExpression, ExecutionNodeVisitorImpl visitor) {
+		visitor.reset();
 		CodePointCharStream input = CharStreams.fromString(arithmeticExpression);
-		ConditionLexer lexer = new ConditionLexer(input);
+		IfStatementLexer lexer = new IfStatementLexer(input);
     	lexer.removeErrorListeners();
     	ThrowingErrorListener errorListener = new ThrowingErrorListener();
     	lexer.addErrorListener(errorListener);
 
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		ConditionParser parser = new ConditionParser(tokens);
+		IfStatementParser parser = new IfStatementParser(tokens);
 		parser.addErrorListener(errorListener);
 		ExprContext expr = parser.expr();
 		
 		ExpressionWrapperImpl node = (ExpressionWrapperImpl)expr.accept(visitor);
 		return node.getExpression();
 	}
+
 }

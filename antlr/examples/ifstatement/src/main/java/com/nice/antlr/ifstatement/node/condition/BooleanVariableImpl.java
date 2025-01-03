@@ -14,10 +14,13 @@ public class BooleanVariableImpl implements Condition {
 	@Override
 	public Boolean eval(@NonNull VariableStack variableStack) {
 		Boolean value = variableStack.getVariableValue(name, Boolean.class);
-		if (value != null) {
-			return value;
+		if (value == null) {
+			value = Boolean.FALSE;
 		}
-		return false;
+		if (isDebugEnable()) {
+			debug(name, value.toString());
+		}
+		return value;
 	}
 
 	@Override
