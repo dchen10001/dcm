@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.QueueStatus;
+import com.nice.dcm.simulation.distribution.node.rule.QueueStatus;
 
 class QueueStatusTest {
 	@Test

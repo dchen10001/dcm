@@ -12,14 +12,15 @@ import java.util.UUID;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.RoutingGroupRule;
-import com.nice.dcm.simulation.distribution.rule.RoutingRule;
-import com.nice.dcm.simulation.distribution.rule.RuleAction;
-import com.nice.dcm.simulation.distribution.rule.SkillLevelCondition;
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
-import com.nice.dcm.simulation.distribution.rule.SkillSetSelector;
-import com.nice.dcm.simulation.distribution.rule.operator.BinaryOperator;
-import com.nice.dcm.simulation.distribution.rule.operator.SqlOperator;
+import com.nice.dcm.distribution.rule.parser.visitor.DCMRuleVisitorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingGroupRule;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRule;
+import com.nice.dcm.simulation.distribution.node.rule.RuleAction;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinaryOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlOperator;
 
 class RuleParserHelperItemTest {
 	@Test

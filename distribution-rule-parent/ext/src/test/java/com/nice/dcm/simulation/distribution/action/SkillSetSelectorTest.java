@@ -8,9 +8,9 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.SkillLevelCondition;
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
-import com.nice.dcm.simulation.distribution.rule.SkillSetSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
 
 class SkillSetSelectorTest {
 	@Test
@@ -41,6 +41,12 @@ class SkillSetSelectorTest {
 		public List<SkillSelector> getSkillSelectors() {
 			return selectors;
 		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 	
 	class SkillSelectorImpl implements SkillSelector {
@@ -66,6 +72,12 @@ class SkillSetSelectorTest {
 		public SkillLevelCondition getCondition() {
 			return condition;
 		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 	
@@ -84,6 +96,12 @@ class SkillSetSelectorTest {
 		@Override
 		public int compareTo(SkillLevelCondition o) {
 			return 0;
+		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}	
 }

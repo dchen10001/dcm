@@ -21,7 +21,7 @@ import com.nice.dcm.simulation.distribution.action.QueueToGroupAction;
 import com.nice.dcm.simulation.distribution.action.QueueToGroupSetAction;
 import com.nice.dcm.simulation.distribution.action.QueueToGroupSetActionImpl;
 import com.nice.dcm.simulation.distribution.action.SkillQueueSelector;
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
 
 class RuleParserServiceImplTest {
 	@Test

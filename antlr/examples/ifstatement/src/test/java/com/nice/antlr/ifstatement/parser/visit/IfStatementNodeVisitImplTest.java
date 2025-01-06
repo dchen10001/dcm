@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Test;
 
-import com.nice.antlr.ifstatement.node.action.Action;
+import com.nice.antlr.ifstatement.node.action.DoAction;
 import com.nice.antlr.ifstatement.node.ifstatement.IfStatement;
 import com.nice.antlr.ifstatement.node.variable.VariableStack;
 import com.nice.antlr.ifstatement.node.variable.VariableStackImpl;
@@ -61,7 +61,7 @@ else {
 			variableStack.setVariable("a", 1.0);
 			variableStack.setVariable("b", 2.0);
 			
-			Action action = ifStatement.eval(variableStack);
+			DoAction action = ifStatement.eval(variableStack);
 			assertEquals("PRINT 2.0", action.toExpression());
 			
 			variableStack.setVariable("a", 2.0);
@@ -115,7 +115,7 @@ else {
 			variableStack.setVariable("a", 1.0);
 			variableStack.setVariable("b", 2.0);
 			
-			Action action = ifStatement.eval(variableStack);
+			DoAction action = ifStatement.eval(variableStack);
 			assertEquals("PRINT 2.0", action.toExpression());
 			
 			variableStack.setVariable("a", 2.0);

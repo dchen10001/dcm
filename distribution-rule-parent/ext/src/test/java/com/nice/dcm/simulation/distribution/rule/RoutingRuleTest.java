@@ -10,6 +10,12 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import com.nice.dcm.simulation.distribution.node.rule.QueueStatus;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRule;
+import com.nice.dcm.simulation.distribution.node.rule.RuleAction;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
+
 class RoutingRuleTest {
 
 	@Test
@@ -62,6 +68,12 @@ class RoutingRuleTest {
 		public boolean isLeastBusyOf() {
 			return false;
 		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 	
 	class SkillSetSelectorImpl implements SkillSetSelector {
@@ -80,6 +92,12 @@ class RoutingRuleTest {
 
 		@Override
 		public List<SkillSelector> getSkillSelectors() {
+			return null;
+		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
 			return null;
 		}
 	}

@@ -13,8 +13,14 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.SkillLevelCondition;
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinaryOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinarySkillLevelConditionImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SkillSelectorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SkillSetSelectorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlSkillLevelConditionImpl;
 
 class SkillSetSelectorImplTest {
 	@Test

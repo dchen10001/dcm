@@ -1,6 +1,6 @@
 package com.nice.antlr.ifstatement.node.condition;
 
-import com.nice.antlr.ifstatement.node.BaseNode;
+import com.nice.antlr.ifstatement.node.ExecutionNode;
 
-public interface Condition extends BaseNode<Boolean> {
+public interface Condition extends ExecutionNode<Boolean> {
 }

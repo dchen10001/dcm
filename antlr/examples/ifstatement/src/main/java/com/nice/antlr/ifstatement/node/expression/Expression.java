@@ -1,7 +1,7 @@
 package com.nice.antlr.ifstatement.node.expression;
 
-import com.nice.antlr.ifstatement.node.BaseNode;
+import com.nice.antlr.ifstatement.node.ExecutionNode;
 
-public interface Expression extends BaseNode<Double> {
+public interface Expression extends ExecutionNode<Double> {
 	boolean multiVariable();
 }

@@ -1,6 +1,6 @@
 package com.nice.antlr.ifstatement.node.ifstatement;
 
-import com.nice.antlr.ifstatement.node.action.Action;
+import com.nice.antlr.ifstatement.node.action.DoAction;
 import com.nice.antlr.ifstatement.node.condition.Condition;
 import com.nice.antlr.ifstatement.node.variable.VariableStack;
 
@@ -10,9 +10,9 @@ import lombok.NonNull;
 @Getter
 public class ElseIfStatementImpl implements ElseIfStatement {
 	private final Condition condition;
-	private final Action action;
+	private final DoAction action;
 
-	public ElseIfStatementImpl(@NonNull Condition condition, @NonNull Action action) {
+	public ElseIfStatementImpl(@NonNull Condition condition, @NonNull DoAction action) {
 		this.condition = condition;
 		this.action = action;
 	}
@@ -27,16 +27,16 @@ public class ElseIfStatementImpl implements ElseIfStatement {
 	}
 	
 	@Override
-	public Action eval(@NonNull VariableStack variableStack) {
-		if(isDebugEnable()) {
-			debug("ElseIf " + this.condition.toExpression());
-		}
-		
+	public DoAction eval(@NonNull VariableStack variableStack) {
 		if (this.condition.eval(variableStack).booleanValue()) {
 			if(isDebugEnable()) {
-				debug("ElseIf return", this.action.toExpression());
+				debug("ElseIf " + this.condition.toExpression() + " = true; DO ", this.action.toExpression());
 			}
 			return this.action;
+		} else {
+			if (isDebugEnable()) {
+				debug("ElseIf " + this.condition.toExpression() + " = false");
+			}
 		}
 		return null;
 	}

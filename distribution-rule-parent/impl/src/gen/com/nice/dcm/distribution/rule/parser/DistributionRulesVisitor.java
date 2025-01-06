@@ -11,6 +11,18 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface DistributionRulesVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link DistributionRulesParser#start}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStart(DistributionRulesParser.StartContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link DistributionRulesParser#execution}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExecution(DistributionRulesParser.ExecutionContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link DistributionRulesParser#routingRuleSet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

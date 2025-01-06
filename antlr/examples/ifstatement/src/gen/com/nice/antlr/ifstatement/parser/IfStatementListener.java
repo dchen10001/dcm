@@ -18,6 +18,30 @@ public interface IfStatementListener extends ParseTreeListener {
 	 */
 	void exitStart(IfStatementParser.StartContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code EXECUTEIF}
+	 * labeled alternative in {@link IfStatementParser#execution}.
+	 * @param ctx the parse tree
+	 */
+	void enterEXECUTEIF(IfStatementParser.EXECUTEIFContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EXECUTEIF}
+	 * labeled alternative in {@link IfStatementParser#execution}.
+	 * @param ctx the parse tree
+	 */
+	void exitEXECUTEIF(IfStatementParser.EXECUTEIFContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code EXECUTERULE}
+	 * labeled alternative in {@link IfStatementParser#execution}.
+	 * @param ctx the parse tree
+	 */
+	void enterEXECUTERULE(IfStatementParser.EXECUTERULEContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code EXECUTERULE}
+	 * labeled alternative in {@link IfStatementParser#execution}.
+	 * @param ctx the parse tree
+	 */
+	void exitEXECUTERULE(IfStatementParser.EXECUTERULEContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code EXPRASSSIGNMENT}
 	 * labeled alternative in {@link IfStatementParser#assignment}.
 	 * @param ctx the parse tree
@@ -300,15 +324,15 @@ public interface IfStatementListener extends ParseTreeListener {
 	 */
 	void exitLogicalop(IfStatementParser.LogicalopContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PRINTDOUBLE}
-	 * labeled alternative in {@link IfStatementParser#printstmt}.
+	 * Enter a parse tree produced by the {@code DOPRINT}
+	 * labeled alternative in {@link IfStatementParser#doRule}.
 	 * @param ctx the parse tree
 	 */
-	void enterPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx);
+	void enterDOPRINT(IfStatementParser.DOPRINTContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PRINTDOUBLE}
-	 * labeled alternative in {@link IfStatementParser#printstmt}.
+	 * Exit a parse tree produced by the {@code DOPRINT}
+	 * labeled alternative in {@link IfStatementParser#doRule}.
 	 * @param ctx the parse tree
 	 */
-	void exitPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx);
+	void exitDOPRINT(IfStatementParser.DOPRINTContext ctx);
 }

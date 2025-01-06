@@ -1,8 +1,8 @@
 package com.nice.antlr.ifstatement.node.assignment;
 
-import com.nice.antlr.ifstatement.node.BaseNode;
+import com.nice.antlr.ifstatement.node.ExecutionNode;
 
-public interface Assignment<V extends BaseNode<?>> extends BaseNode<Void> {
+public interface Assignment<V extends ExecutionNode<?>> extends ExecutionNode<Void> {
 	String getVariableName();
 
 	V getRightValue();

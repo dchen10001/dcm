@@ -44,7 +44,7 @@ class AssignmentNodeVisitImplTest {
 	
 	String cndAssignment[] = { 			
 			"set e = a  + b < c + d ",
-			"set e = a != b || c < d ",
+			"set e = a!=b || c < d ",
 			"set  e = (a <= b && d >= 0.0) || (a >= c && d != 0.0) || !(a  == c || d >= 0.0)"
 	};
 	

@@ -10,8 +10,10 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.RoutingGroupRule;
-import com.nice.dcm.simulation.distribution.rule.RoutingRuleSet;
+import com.nice.dcm.distribution.rule.parser.utility.RuleParserHelper;
+import com.nice.dcm.distribution.rule.parser.visitor.DCMRuleVisitorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingGroupRule;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRuleSet;
 
 class RuleParserHelperRuleTest {
 	@Test
