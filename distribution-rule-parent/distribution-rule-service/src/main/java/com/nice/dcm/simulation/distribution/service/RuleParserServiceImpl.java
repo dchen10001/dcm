@@ -9,8 +9,8 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.nice.dcm.distribution.rule.parser.DCMRuleVisitorImpl;
-import com.nice.dcm.distribution.rule.parser.RuleParserHelper;
+import com.nice.dcm.distribution.rule.parser.utility.RuleParserHelper;
+import com.nice.dcm.distribution.rule.parser.visitor.DCMRuleVisitorImpl;
 import com.nice.dcm.simulation.distribution.action.CTDistributionRules;
 import com.nice.dcm.simulation.distribution.action.CTRuleSetActions;
 import com.nice.dcm.simulation.distribution.action.CTRuleSetActionsImpl;
@@ -22,10 +22,10 @@ import com.nice.dcm.simulation.distribution.action.QueueToGroupSetAction;
 import com.nice.dcm.simulation.distribution.action.QueueToGroupSetActionImpl;
 import com.nice.dcm.simulation.distribution.action.SkillQueueSelector;
 import com.nice.dcm.simulation.distribution.action.SkillQueueSelectorImpl;
-import com.nice.dcm.simulation.distribution.rule.RoutingGroupRule;
-import com.nice.dcm.simulation.distribution.rule.RoutingRule;
-import com.nice.dcm.simulation.distribution.rule.RoutingRuleSet;
-import com.nice.dcm.simulation.distribution.rule.SkillSetSelector;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingGroupRule;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRule;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRuleSet;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
 
 import lombok.Getter;
 import lombok.NonNull;

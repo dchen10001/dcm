@@ -2,7 +2,7 @@ package com.nice.dcm.simulation.distribution.action;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.nice.dcm.simulation.distribution.rule.SkillSetSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
 
 /**
  * interface of ACD skill queue, extends from SkillSetSelector.

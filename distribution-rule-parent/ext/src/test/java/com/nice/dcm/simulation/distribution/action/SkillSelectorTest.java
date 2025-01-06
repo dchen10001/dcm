@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.SkillLevelCondition;
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
 
 class SkillSelectorTest {
 	@Test
@@ -45,6 +45,12 @@ class SkillSelectorTest {
 		public SkillLevelCondition getCondition() {
 			return condition;
 		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 		
 	}
 	
@@ -63,6 +69,12 @@ class SkillSelectorTest {
 		@Override
 		public int compareTo(SkillLevelCondition o) {
 			return 0;
+		}
+
+		@Override
+		public String toExpression() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 }

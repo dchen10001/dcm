@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.RuleAction;
+import com.nice.dcm.simulation.distribution.node.rule.RuleAction;
 
 class RuleActionTest {
 	@Test

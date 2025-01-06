@@ -2,7 +2,7 @@ package com.nice.antlr.ifstatement.parser.visit;
 
 import java.util.List;
 
-import com.nice.antlr.ifstatement.node.action.Action;
+import com.nice.antlr.ifstatement.node.action.DoAction;
 import com.nice.antlr.ifstatement.node.assignment.ConditionAssignmentImpl;
 import com.nice.antlr.ifstatement.node.assignment.ExpressionAssignmentImpl;
 import com.nice.antlr.ifstatement.node.condition.Condition;
@@ -29,8 +29,8 @@ public abstract class IfStatementNodeVisitImpl extends ConditionNodeVisitImpl {
 	public IfStatementWrapperImpl visitIfstmt(IfstmtContext ctx) {
 		logger.trace("Visiting IFSTMT: {}", ctx.getText());
 		Condition condition = ((ConditionWrapperImpl)visit(ctx.conditiongroup())).getCondition();
-		Action action = ((ActionWrapperImpl)visit(ctx.printstmt())).getAction();
-		Action elseAction = ((ActionWrapperImpl)visit(ctx.elsestmt())).getAction();
+		DoAction action = ((ActionWrapperImpl)visit(ctx.doRule())).getAction();
+		DoAction elseAction = ((ActionWrapperImpl)visit(ctx.elsestmt())).getAction();
 		List<ElseIfStatement> elseIfStatements = ctx.elseifstmt().stream().map(this::toElseIfStatement).toList();
 		IfStatement ifStatement = new IfStatementImpl(condition, action, elseAction, elseIfStatements);
 		return new IfStatementWrapperImpl(ifStatement);
@@ -44,7 +44,7 @@ public abstract class IfStatementNodeVisitImpl extends ConditionNodeVisitImpl {
 	public ElseIfStatementWarrperImpl visitElseifstmt(ElseifstmtContext ctx) {
 		logger.trace("Visiting ELSEIFSTMT: {}",	ctx.getText());
 		ConditionWrapperImpl conditionNode = (ConditionWrapperImpl)visit(ctx.conditiongroup());
-		ActionWrapperImpl actionNode = (ActionWrapperImpl)visit(ctx.printstmt());
+		ActionWrapperImpl actionNode = (ActionWrapperImpl)visit(ctx.doRule());
 		ElseIfStatement elseIfStatement = new ElseIfStatementImpl(conditionNode.getCondition(), actionNode.getAction());
 		return new ElseIfStatementWarrperImpl(elseIfStatement);
 	}
@@ -52,7 +52,7 @@ public abstract class IfStatementNodeVisitImpl extends ConditionNodeVisitImpl {
 	@Override
 	public ActionWrapperImpl visitElsestmt(ElsestmtContext ctx) {
 		logger.trace("Visiting ELSESTMT: {}", ctx.getText());
-		return (ActionWrapperImpl)visit(ctx.printstmt());
+		return (ActionWrapperImpl)visit(ctx.doRule());
 	}
 	
 	@Override

@@ -1,13 +1,23 @@
 grammar DistributionRules;
 
 /* routing rule set is the top rule set */
-routingRuleSet: routingRuleGroup (routingWaitingRuleGroup)* EOF;
 
-routingWaitingRuleGroup: waitRule routingRuleGroup;
+start : execution | <EOF> ;
 
-routingRuleGroup: (routingRule)+;
+execution: routingRuleSet
+;
 
-routingRule: ruleAction (queue_status)? orSkills priority;
+routingRuleSet: routingRuleGroup (routingWaitingRuleGroup)*
+;
+
+routingWaitingRuleGroup: waitRule routingRuleGroup
+;
+
+routingRuleGroup: (routingRule)+
+;
+
+routingRule: ruleAction (queue_status)? orSkills priority
+;
 
 /* if we have new action, such as ROUTE_TO, 
 * we can add it here as 
@@ -41,20 +51,7 @@ binaryOperator:
 	| NOT_EQUAL 
 	| GREATER_THAN | GREATER_THAN_EQUAL;
 
-LESS_THAN: '<';
-LESS_THAN_EQUAL: '<=';
-EQUAL: '=';
-NOT_EQUAL: NE1 | NE2;
-GREATER_THAN: '>';
-GREATER_THAN_EQUAL: '>=';
-
-NE1: '!=';
-NE2: '<>';
-
 sqlOperator: IN | NOT_IN;
-
-IN: 'in';
-NOT_IN: 'not' [' ']+ 'in';
 
 entity_identifier: UUID_OR_HEXA #OIDHEX
 	| NUMBER #OIDNUMBER
@@ -70,6 +67,20 @@ waitRule: 'wait' NUMBER;
 */
 queue_status: LEAST_BUSY_OF #QSLEASTBUSYOF
 ;
+
+// lexer
+LESS_THAN: '<';
+LESS_THAN_EQUAL: '<=';
+EQUAL: '=';
+NOT_EQUAL: NE1 | NE2;
+GREATER_THAN: '>';
+GREATER_THAN_EQUAL: '>=';
+
+NE1: '!=';
+NE2: '<>';
+
+IN: 'in';
+NOT_IN: 'not' [' ']+ 'in';
 
 // Agent status
 LEAST_BUSY_OF: 'least' [' ']+ 'busy' [' ']+ 'of';

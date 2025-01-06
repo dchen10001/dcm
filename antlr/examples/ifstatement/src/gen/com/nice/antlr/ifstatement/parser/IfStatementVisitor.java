@@ -17,6 +17,20 @@ public interface IfStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStart(IfStatementParser.StartContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EXECUTEIF}
+	 * labeled alternative in {@link IfStatementParser#execution}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEXECUTEIF(IfStatementParser.EXECUTEIFContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code EXECUTERULE}
+	 * labeled alternative in {@link IfStatementParser#execution}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEXECUTERULE(IfStatementParser.EXECUTERULEContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code EXPRASSSIGNMENT}
 	 * labeled alternative in {@link IfStatementParser#assignment}.
 	 * @param ctx the parse tree
@@ -183,10 +197,10 @@ public interface IfStatementVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLogicalop(IfStatementParser.LogicalopContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PRINTDOUBLE}
-	 * labeled alternative in {@link IfStatementParser#printstmt}.
+	 * Visit a parse tree produced by the {@code DOPRINT}
+	 * labeled alternative in {@link IfStatementParser#doRule}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPRINTDOUBLE(IfStatementParser.PRINTDOUBLEContext ctx);
+	T visitDOPRINT(IfStatementParser.DOPRINTContext ctx);
 }

@@ -13,7 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.api.Test;
 
 import com.nice.antlr.ifstatement.node.Execution;
-import com.nice.antlr.ifstatement.node.action.Action;
+import com.nice.antlr.ifstatement.node.action.DoAction;
 import com.nice.antlr.ifstatement.node.variable.VariableStack;
 import com.nice.antlr.ifstatement.node.variable.VariableStackImpl;
 import com.nice.antlr.ifstatement.parser.IfStatementLexer;
@@ -22,6 +22,32 @@ import com.nice.antlr.ifstatement.parser.listener.ThrowingErrorListener;
 import com.nice.antlr.ifstatement.parser.visit.nodewrapper.ExecutionWrapperImpl;
 
 class ExecutionWrapperImplTest {
+	@Test
+	void testDoRuleVisit() {
+		ExecutionNodeVisitorImpl visitor = new ExecutionNodeVisitorImpl();
+		String expr = "print 2.0";
+		Execution execution = parse(expr, visitor);
+		String expression = execution.toExpression();
+		assertEquals("PRINT 2.0", expression);
+		
+		Set<String> names = visitor.getVariableNames(Double.class).stream().collect(Collectors.toSet());
+		assertEquals(Set.of(), names);
+		
+		names = visitor.getVariableNames(Boolean.class).stream().collect(Collectors.toSet());
+		assertEquals(Set.of(), names);
+		
+		names = visitor.getAssignmentNames(Double.class).stream().collect(Collectors.toSet());
+		assertEquals(Set.of(), names);
+
+		names = visitor.getAssignmentNames(Boolean.class).stream().collect(Collectors.toSet());
+		assertEquals(Set.of(), names);
+		
+		VariableStack variableStack = new VariableStackImpl();
+		
+		DoAction action = execution.eval(variableStack);
+		assertEquals("PRINT 2.0", action.toExpression());
+	}
+	
 	
 	@Test
 	void testIFStatementVisit() {
@@ -72,7 +98,7 @@ else {
 		variableStack.setVariable("d", 4.0);
 		variableStack.setVariable("e", true);
 		
-		Action action = execution.eval(variableStack);
+		DoAction action = execution.eval(variableStack);
 		
 		assertEquals("PRINT 3.0", action.toExpression());
 		
@@ -142,7 +168,7 @@ else {
 		variableStack.setVariable("d", 4.0);
 		variableStack.setVariable("e", true);
 		
-		Action action = execution.eval(variableStack);
+		DoAction action = execution.eval(variableStack);
 		
 		assertEquals("PRINT 2.0", action.toExpression());
 		

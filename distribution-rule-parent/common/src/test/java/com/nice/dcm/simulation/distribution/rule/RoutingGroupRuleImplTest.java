@@ -10,12 +10,20 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.operator.BinaryOperator;
-import com.nice.dcm.simulation.distribution.rule.operator.BinarySkillLevelConditionImpl;
-import com.nice.dcm.simulation.distribution.rule.operator.SkillSelectorImpl;
-import com.nice.dcm.simulation.distribution.rule.operator.SkillSetSelectorImpl;
-import com.nice.dcm.simulation.distribution.rule.operator.SqlOperator;
-import com.nice.dcm.simulation.distribution.rule.operator.SqlSkillLevelConditionImpl;
+import com.nice.dcm.simulation.distribution.node.rule.QueueStatus;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingGroupRule;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingGroupRuleImpl;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRule;
+import com.nice.dcm.simulation.distribution.node.rule.RoutingRuleImpl;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinaryOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinarySkillLevelConditionImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SkillSelectorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SkillSetSelectorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlSkillLevelConditionImpl;
 
 class RoutingGroupRuleImplTest {
 	@Test

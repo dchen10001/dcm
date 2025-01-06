@@ -2,8 +2,8 @@ package com.nice.dcm.simulation.distribution.action;
 
 import java.util.List;
 
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
-import com.nice.dcm.simulation.distribution.rule.SkillSetSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,5 +24,10 @@ public class SkillQueueSelectorImpl implements SkillQueueSelector {
 	@Override
 	public List<SkillSelector> getSkillSelectors() {
 		return selector.getSkillSelectors();
+	}
+
+	@Override
+	public String toExpression() {
+		return selector.toExpression();
 	}
 }

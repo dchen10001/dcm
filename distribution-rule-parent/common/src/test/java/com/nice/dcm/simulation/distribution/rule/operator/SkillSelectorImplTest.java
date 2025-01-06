@@ -9,8 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.SkillLevelCondition;
-import com.nice.dcm.simulation.distribution.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillSelector;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SkillSelectorImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlSkillLevelConditionImpl;
 
 class SkillSelectorImplTest {
 	@Test
@@ -61,6 +64,12 @@ class SkillSelectorImplTest {
 
 			@Override
 			public SkillLevelCondition getCondition() {
+				return null;
+			}
+
+			@Override
+			public String toExpression() {
+				// TODO Auto-generated method stub
 				return null;
 			}
 		};

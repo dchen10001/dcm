@@ -12,7 +12,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.nice.dcm.simulation.distribution.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.SkillLevelCondition;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinaryOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.BinarySkillLevelConditionImpl;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlOperator;
+import com.nice.dcm.simulation.distribution.node.rule.skill.SqlSkillLevelConditionImpl;
 
 class BinarySkillLevelConditionImplTest {
 	@Test
