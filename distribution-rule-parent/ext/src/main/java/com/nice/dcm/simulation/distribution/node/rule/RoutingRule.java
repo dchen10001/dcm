@@ -43,6 +43,7 @@ public interface RoutingRule extends BaseNode {
 	 */
 	boolean isLeastBusyOf();
 	
+	//OR relationship, at least one selector should be satisfied
 	default boolean evaluate(Map<String, Integer> skillToLevels) {
 		if (skillToLevels == null || skillToLevels.isEmpty()) {
             return false;
@@ -50,9 +51,11 @@ public interface RoutingRule extends BaseNode {
         
         for(SkillSetSelector skillSetSelector : getSelectors()) {
             if (skillSetSelector.evaluate(skillToLevels)) {
+            	debug("skillSetSelector ", skillSetSelector.toExpression(), " is satisfied.");
                 return true;
             }
         }
+        debug("No SkillSetSelector is satisfied.");
         return false;
 	}
 }

@@ -95,8 +95,6 @@ public class RuleParserServiceImpl implements RuleParserService {
 		return new QueueToActionImpl(selectors, routingRule.getPriority(), routingRule.isLeastBusyOf());
 	}
 
-
-
 	private DCMRuleVisitorImpl dcmRuleVisitor(Set<String> skills) {
         return new DCMRuleVisitorImpl(skills);
 	}

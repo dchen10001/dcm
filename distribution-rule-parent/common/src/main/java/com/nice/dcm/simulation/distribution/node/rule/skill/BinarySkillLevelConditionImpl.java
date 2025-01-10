@@ -26,7 +26,9 @@ public class BinarySkillLevelConditionImpl implements SkillLevelCondition {
     
 	@Override
 	public boolean evaluate(int left) {
-		return operator.evaluate(left, right);
+		boolean flag = operator.evaluate(left, right);
+		debug(toExpression(), "=", String.valueOf(flag));
+		return flag;
 	}
 	
 	@Override

@@ -1,7 +1,8 @@
-package com.nice.dcm.distribution.rule.parser;
+package com.nice.dcm.simulation.distribution.service;
 
 import java.util.List;
 
+import com.nice.dcm.distribution.rule.parser.DistributionRulesParser;
 import com.nice.dcm.distribution.rule.parser.utility.RuleParserHelper;
 import com.nice.dcm.distribution.rule.parser.visit.nodewrapper.rule.ActionNodeWrapImpl;
 import com.nice.dcm.distribution.rule.parser.visit.nodewrapper.rule.RoutingRuleGroupNodeWrapImpl;

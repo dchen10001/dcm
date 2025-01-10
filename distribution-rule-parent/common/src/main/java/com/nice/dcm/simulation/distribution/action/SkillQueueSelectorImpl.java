@@ -7,10 +7,8 @@ import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 @EqualsAndHashCode
 public class SkillQueueSelectorImpl implements SkillQueueSelector {
 	private final int id;
@@ -28,6 +26,11 @@ public class SkillQueueSelectorImpl implements SkillQueueSelector {
 
 	@Override
 	public String toExpression() {
-		return selector.toExpression();
+		return "SkillQueueId = " + id + ", " + selector.toExpression();
+	}
+	
+	@Override
+	public String toString() {
+		return toExpression();
 	}
 }

@@ -27,14 +27,18 @@ public interface SkillSelector extends Comparable<SkillSelector>, BaseNode {
 	 * @return true if the skill level is satisfied the condition
 	 */
 	default boolean evaluate(String skillOid, int level) {
-		if (!this.getSkillOid().equals(skillOid)) {
-			return false;
+		boolean flag = this.getSkillOid().equals(skillOid);
+		debug("evaluate skillOid: ", skillOid, ", level: ", String.valueOf(level), "=", String.valueOf(flag));
+		if (!flag) {
+			return flag;
 		}
 		
 		SkillLevelCondition condition = getCondition();
 		if (condition == null) {
 			return true;
 		}
-		return condition.evaluate(level);
+		flag =  condition.evaluate(level);
+		debug(condition.toExpression(), "=", String.valueOf(flag));
+		return flag;
 	}	
 }

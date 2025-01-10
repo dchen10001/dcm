@@ -13,5 +13,7 @@ public interface QueueToGroupSetAction {
 	 * @param waitingSeconds
 	 * @return
 	 */
-	List<QueueToGroupAction> getActions(long waitingSeconds);
+	QueueToActions getActions(long waitingSeconds);
+
+	QueueToActions getActions();
 }

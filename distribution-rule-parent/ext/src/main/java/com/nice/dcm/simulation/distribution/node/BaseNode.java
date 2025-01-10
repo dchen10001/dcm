@@ -8,15 +8,14 @@ public interface BaseNode {
 
 	String toExpression();
 
-	default boolean isDebugEnable() {
-		return logger.isDebugEnabled();
-	}
-
-	default void debug(String script, String value) {
-		logger.debug("{} = {}", script, value);
-	}
-	
-	default void debug(String msg) {
-		logger.debug(msg);
+	default void debug(String... messages) {
+		if(!logger.isDebugEnabled()) {
+			return;
+		}
+		StringBuilder sb = new StringBuilder();
+		for (String msg : messages) {
+			sb.append(msg).append(" ");
+		}
+		logger.debug("{}", sb);
 	}
 }
