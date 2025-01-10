@@ -1,4 +1,4 @@
-package com.nice.dcm.distribution.rule.parser;
+package com.nice.dcm.simulation.distribution.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

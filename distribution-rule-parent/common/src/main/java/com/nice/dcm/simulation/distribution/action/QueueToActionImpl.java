@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
@@ -37,5 +39,36 @@ public class QueueToActionImpl implements QueueToAction {
 		this.selectors = skillSelectors.stream().distinct().collect(Collectors.toSet());
 		this.priority = priority;
 		this.leastBusy = leastBusy;
+	}
+
+	@Override
+	public int compareTo(QueueToAction o) {
+		if (priority > o.getPriority())
+			return 1;
+		else if (priority < o.getPriority())
+			return -1;
+		else
+			return 0;
+	}
+
+	@Override
+	public String toExpression() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Queue To");
+		if (leastBusy) {
+			sb.append(" ").append("Least Busy of ");
+		}
+		
+		boolean first = true;
+		for (SkillSetSelector selector : selectors) {
+			if (!first) {
+				sb.append("AND");
+			}
+			sb.append(" ").append(selector.toExpression()).append(" ");
+			first = false;
+		}
+		
+		sb.append(" ").append(priority);
+		return sb.toString();
 	}
 }

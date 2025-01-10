@@ -25,55 +25,43 @@ class QueueToGroupSetActionImplTest {
 		QueueToGroupAction queueToGroupAction = createDefault(0);
 		QueueToGroupSetAction queueToGroupSetAction = new QueueToGroupSetActionImpl(queueToGroupAction);
 		
-		List<QueueToGroupAction> actions = queueToGroupSetAction.getActions(0);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		 QueueToActions actions = queueToGroupSetAction.getActions(0);
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		actions = queueToGroupSetAction.getActions(100);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		
 		queueToGroupSetAction = new QueueToGroupSetActionImpl(queueToGroupAction, null);
 		actions = queueToGroupSetAction.getActions(0);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		actions = queueToGroupSetAction.getActions(100);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		queueToGroupSetAction = new QueueToGroupSetActionImpl(queueToGroupAction, List.of());
 		actions = queueToGroupSetAction.getActions(0);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		actions = queueToGroupSetAction.getActions(100);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		List<QueueToGroupAction> queueToGroupActions = createList();
 		queueToGroupSetAction = new QueueToGroupSetActionImpl(queueToGroupAction, queueToGroupActions);
 		
 		actions = queueToGroupSetAction.getActions(0);
-		assertEquals(1, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
+		assertEquals(1, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 		
 		actions = queueToGroupSetAction.getActions(100);
-		assertEquals(2, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
-		
-		QueueToGroupAction q1 = actions.get(1);
-		assertEquals(100, q1.getWaitAfterSeconds());
-		assertEquals(1, q1.getActions().size());
-		
-		actions = queueToGroupSetAction.getActions(300);
-		assertEquals(3, actions.size());
-		assertSame(queueToGroupAction, actions.get(0));
-		assertSame(q1, actions.get(1));
-		
-		assertEquals(200, actions.get(2).getWaitAfterSeconds());
-
+		assertEquals(3, actions.getActions().size());
+		assertSame(0, actions.getActions().get(0).getPriority());
 	}
 	
 	@Test

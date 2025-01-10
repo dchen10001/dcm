@@ -11,10 +11,8 @@ import com.nice.dcm.simulation.distribution.node.rule.SkillSetSelector;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
 
 @Getter
-@ToString
 @EqualsAndHashCode
 public class SkillSetSelectorImpl implements SkillSetSelector {
 	private final List<SkillSelector> skillSelectors;
@@ -36,6 +34,11 @@ public class SkillSetSelectorImpl implements SkillSetSelector {
 		this.skillSelectors = List.of(skillSelector);
 	}
 
+	@Override
+	public String toString() {
+		return toExpression();
+	}
+	
 	@Override
 	public String toExpression() {
 		StringBuilder sb = new StringBuilder();

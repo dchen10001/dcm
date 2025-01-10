@@ -31,7 +31,9 @@ public class SqlSkillLevelConditionImpl implements SkillLevelCondition {
 
 	@Override
 	public boolean evaluate(int level) {
-		return operator.evaluate(level, upperBound, lowerBound);
+		boolean flag = operator.evaluate(level, upperBound, lowerBound);
+		debug(toExpression(), "=", String.valueOf(flag));
+		return flag;
 	}
 
 	@Override

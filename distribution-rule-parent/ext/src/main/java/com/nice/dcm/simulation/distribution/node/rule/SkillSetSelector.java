@@ -23,15 +23,24 @@ public interface SkillSetSelector extends BaseNode {
 		if (skillToLevels == null || skillToLevels.isEmpty()) {
 			return false;
 		}
+		
+		//AND relationship, all skill selectors should be satisfied
 		for (SkillSelector skillSelector : getSkillSelectors()) {
 			String skillOid = skillSelector.getSkillOid();
-			if (!skillToLevels.containsKey(skillOid)) {
-				return false;
-			} else {
+			boolean flag = skillToLevels.containsKey(skillOid);
+			debug("skill set contains ", skillOid, String.valueOf(flag));
+			
+			if (flag) {
 				int level = skillToLevels.get(skillOid);
-				if (!skillSelector.evaluate(skillOid, level)) {
+				debug("skill level of", skillOid, "=", String.valueOf(level));
+
+				flag = skillSelector.evaluate(skillOid, level);
+				debug("skill level condition of", skillOid, "=", String.valueOf(flag));
+				if (!flag) {
 					return false;
 				}
+			} else {
+				return false;
 			}
 		}
 		return true;

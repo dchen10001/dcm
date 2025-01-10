@@ -24,4 +24,21 @@
 			<artifactId>system-stubs-jupiter</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+	  <plugins>
+	    <plugin>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <configuration>
+	        <archive>
+	          <manifest>
+	            <mainClass>com.nice.dcm.distribution.rule.client.RuleServiceClient</mainClass>
+	          </manifest>
+	        </archive>
+	        <descriptorRefs>
+	          <descriptorRef>jar-with-dependencies</descriptorRef>
+	        </descriptorRefs>
+	      </configuration>
+	    </plugin>
+	  </plugins>
+	</build>	
 </project>

@@ -17,6 +17,7 @@ import com.nice.dcm.simulation.distribution.action.CTDistributionRules;
 import com.nice.dcm.simulation.distribution.action.CTDistributionRulesImpl;
 import com.nice.dcm.simulation.distribution.action.CTRuleSetActions;
 import com.nice.dcm.simulation.distribution.action.QueueToAction;
+import com.nice.dcm.simulation.distribution.action.QueueToActions;
 import com.nice.dcm.simulation.distribution.action.QueueToGroupAction;
 import com.nice.dcm.simulation.distribution.action.QueueToGroupSetAction;
 import com.nice.dcm.simulation.distribution.action.QueueToGroupSetActionImpl;
@@ -63,14 +64,15 @@ class RuleParserServiceImplTest {
 		List<String> ctOids = ruleSetActions.getContactTypes();
 		assertEquals(3, ctOids.size());
 		
-		List.of("01", "02", "03").forEach(oid -> {
+
+		for(String oid : List.of("01", "02", "03")) {
 			assertTrue(ctOids.contains(oid), "oid: " + oid);
 			QueueToGroupSetAction queueToGroupSetAction = ruleSetActions.getQueueToGroupSetAction(oid);
 			assertNotNull(queueToGroupSetAction);
 			if(oid.equals("01")) {
 				assertQueueToGroupSetAction01((QueueToGroupSetActionImpl)queueToGroupSetAction);
 			}
-		});
+		}
 		
 		List<String> errorOids = ruleSetActions.getErrorContactTypes();
 		assertEquals(1, errorOids.size());
@@ -98,20 +100,18 @@ class RuleParserServiceImplTest {
 		for(SkillQueueSelector selector : selectors) {
 			List<SkillSelector> skillSelectors = selector.getSkillSelectors();
 			assertTrue(ids.add(selector.getId()), "duplicated id" + selector.getId());
-			
-			if(selector.getId() != 2) {
-				assertEquals(1, skillSelectors.size());
-			}
-			else {
-				assertEquals(2, skillSelectors.size());
+			if(selector.getId() != 7) {
+				assertEquals(1, skillSelectors.size(), "id = " + selector.getId());
+			} else {
+				assertEquals(2, skillSelectors.size(), "id = " + selector.getId());
 			}
 		}
 	}
 	
 	void assertQueueToGroupSetAction01(QueueToGroupSetActionImpl queueToGroupSetAction) {
-		assertEquals(0, queueToGroupSetAction.getGroupActions().size());
-		QueueToGroupAction groupAction = queueToGroupSetAction.getDefaultGroupAction();
-		assertEquals(0, groupAction.getWaitAfterSeconds());
+		assertEquals(1, queueToGroupSetAction.getActions().getActions().size());
+		QueueToActions groupAction = queueToGroupSetAction.getActions();
+		
 		assertEquals(1, groupAction.getActions().size());
 		QueueToAction ruleAction = groupAction.getActions().get(0);
 		
